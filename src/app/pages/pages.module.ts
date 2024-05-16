@@ -1,7 +1,14 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-
+import {
+  NgbNavModule,
+  NgbDropdownModule,
+  NgbModalModule,
+  NgbTooltipModule,
+  NgbCollapseModule,
+  NgbPaginationModule
+} from '@ng-bootstrap/ng-bootstrap';
 import { TabsModule } from 'ngx-bootstrap/tabs';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { ModalModule } from 'ngx-bootstrap/modal';
@@ -22,29 +29,15 @@ import { PickerModule } from '@ctrl/ngx-emoji-mart';
 import { PagesRoutingModule } from './pages-routing.module';
 
 import { DashboardsModule } from './dashboards/dashboards.module';
-import { EcommerceModule } from './ecommerce/ecommerce.module';
-import { CryptoModule } from './crypto/crypto.module';
-import { EmailModule } from './email/email.module';
-import { InvoicesModule } from './invoices/invoices.module';
-import { ProjectsModule } from './projects/projects.module';
-import { TasksModule } from './tasks/tasks.module';
-import { ContactsModule } from './contacts/contacts.module';
-import { BlogModule } from "./blog/blog.module";
-import { UtilityModule } from './utility/utility.module';
-import { UiModule } from './ui/ui.module';
-import { FormModule } from './form/form.module';
-import { TablesModule } from './tables/tables.module';
-import { IconsModule } from './icons/icons.module';
-import { ChartModule } from './chart/chart.module';
-import { CalendarComponent } from './calendar/calendar.component';
 import { MapsModule } from './maps/maps.module';
 import { HttpClientModule } from '@angular/common/http';
-import { ChatComponent } from './chat/chat.component';
 
-import { FilemanagerComponent } from './filemanager/filemanager.component';
+import { TrafficLightComponent } from './operation/traffic-light/component/traffic-light.component';
+import {OperationModule} from "./operation/operation.module";
+
 
 @NgModule({
-  declarations: [CalendarComponent, ChatComponent, FilemanagerComponent],
+  declarations: [],
   imports: [
     CommonModule,
     FormsModule,
@@ -54,22 +47,8 @@ import { FilemanagerComponent } from './filemanager/filemanager.component';
     NgApexchartsModule,
     ReactiveFormsModule,
     DashboardsModule,
-    CryptoModule,
-    EcommerceModule,
-    EmailModule,
-    InvoicesModule,
     HttpClientModule,
-    ProjectsModule,
     UIModule,
-    TasksModule,
-    ContactsModule,
-    BlogModule,
-    UtilityModule,
-    UiModule,
-    FormModule,
-    TablesModule,
-    IconsModule,
-    ChartModule,
     WidgetModule,
     MapsModule,
     FullCalendarModule,
@@ -79,7 +58,14 @@ import { FilemanagerComponent } from './filemanager/filemanager.component';
     AlertModule.forRoot(),
     SimplebarAngularModule,
     LightboxModule,
-    PickerModule
+    PickerModule,
+    NgbDropdownModule,
+    NgbModalModule,
+    NgbNavModule,
+    NgbTooltipModule,
+    NgbCollapseModule,
+    NgbPaginationModule,
+    OperationModule,
   ],
 })
 export class PagesModule { }

@@ -14,6 +14,15 @@ export const environment = {
     messagingSenderId: "",
     appId: "",
     measurementId: ""
+  },
+  operation:{
+    trafficLight:{
+      list: '/trafficlights',
+      register: '/trafficlights',
+      update: '/trafficlights',
+      delete: '/trafficlights/'
+    }
+
   }
 };
 

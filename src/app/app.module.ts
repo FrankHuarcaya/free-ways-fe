@@ -119,7 +119,7 @@ export function createTranslateLoader(http: HttpClient): any {
   providers: [DecimalPipe,
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
-    { provide: HTTP_INTERCEPTORS, useClass: FakeBackendInterceptor, multi: true },
+    //{ provide: HTTP_INTERCEPTORS, useClass: FakeBackendInterceptor, multi: true },
   ],
 })
 export class AppModule { }

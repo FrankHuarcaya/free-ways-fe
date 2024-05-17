@@ -9,6 +9,10 @@ import { JobsComponent } from "./jobs/jobs.component";
 
 const routes: Routes = [
     {
+        path: '',
+        component: DefaultComponent
+    },
+    {
         path: 'default',
         component: DefaultComponent
     },

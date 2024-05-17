@@ -3,6 +3,7 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
+  server: 'http://127.0.0.1:8000',
   production: false,
   defaultauth: 'fakebackend',
   firebaseConfig: {
@@ -15,12 +16,20 @@ export const environment = {
     appId: "",
     measurementId: ""
   },
+  security: {
+    user: {
+      login: '/security/login/',
+      register: '/security/user/',
+      list: '/security/user/',
+      delete: '/security/user/',
+    }
+  },
   operation:{
     trafficLight:{
-      list: '/trafficlights',
-      register: '/trafficlights',
-      update: '/trafficlights',
-      delete: '/trafficlights/'
+      list: '/operation/trafficlights/',
+      register: '/operation/trafficlights/',
+      update: '/operation/trafficlights/',
+      delete: '/operation/trafficlights/'
     }
 
   }

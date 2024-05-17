@@ -2,23 +2,29 @@ import { Injectable } from '@angular/core';
 
 import { getFirebaseBackend } from '../../authUtils';
 import { User } from 'src/app/store/Authentication/auth.models';
-import { from, map } from 'rxjs';
+import { BehaviorSubject, Observable, from, map } from 'rxjs';
+import { HttpBackend, HttpClient } from '@angular/common/http';
+import { environment } from 'src/environments/environment';
 
 
 @Injectable({ providedIn: 'root' })
 
 export class AuthenticationService {
+    public currentUser: Observable<User>;
+    private currentUserSubject: BehaviorSubject<User>
+    private httpClient: HttpClient;
 
-    user: User;
-
-    constructor() {
+    constructor(handler: HttpBackend) {
+        this.httpClient = new HttpClient(handler);
+        this.currentUserSubject = new BehaviorSubject<User>(JSON.parse(localStorage.getItem("access")));
+        this.currentUser = this.currentUserSubject.asObservable();
     }
 
     /**
      * Returns the current user
      */
-    public currentUser(): User {
-        return getFirebaseBackend().getAuthenticatedUser();
+    public get currentUserValue(): User {
+        return this.currentUserSubject.value;
     }
 
 
@@ -27,11 +33,17 @@ export class AuthenticationService {
      * @param email email of user
      * @param password password of user
      */
-    login(email: string, password: string) {
-        return from(getFirebaseBackend().loginUser(email, password).pipe(map(user => {
-            return user;
-        }
-        )));
+    login(user) {
+        return this.httpClient.post(environment.server + environment.security.user.login, user)
+            .pipe(map((user: any) => {
+                // login successful if there's a jwt token in the response
+                if (user && user.access) {
+                    localStorage.setItem('refresh', JSON.stringify(user.refresh));
+                    localStorage.setItem('access', JSON.stringify(user.access));
+                    this.currentUserSubject.next(user);
+                }
+                return user;
+            }));
     }
 
     /**
@@ -39,14 +51,7 @@ export class AuthenticationService {
      * @param email email
      * @param password password
      */
-    register(user: User) {
-        // return from(getFirebaseBackend().registerUser(user));
 
-        return from(getFirebaseBackend().registerUser(user).then((response: any) => {
-            const user = response;
-            return user;
-        }));
-    }
 
     /**
      * Reset password
@@ -63,8 +68,10 @@ export class AuthenticationService {
      * Logout the user
      */
     logout() {
-        // logout the user
-        getFirebaseBackend().logout();
+        // remove user from local storage to log user out
+        localStorage.removeItem('access');
+        localStorage.removeItem('refresh');
+        this.currentUserSubject.next(null);
     }
 }
 

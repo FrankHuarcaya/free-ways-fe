@@ -13,35 +13,19 @@ import { environment } from '../../../environments/environment';
 
 @Injectable()
 export class JwtInterceptor implements HttpInterceptor {
-    constructor(
-        private authenticationService: AuthenticationService,
-        private authfackservice: AuthfakeauthenticationService
-    ) { }
+    constructor(private authenticationService: AuthenticationService) { }
 
-    intercept(
-        request: HttpRequest<any>,
-        next: HttpHandler
-    ): Observable<HttpEvent<any>> {
-        if (environment.defaultauth === 'firebase') {
-            // add authorization header with jwt token if available
-            let currentUser = this.authenticationService.currentUser();
-            if (currentUser && currentUser.token) {
-                request = request.clone({
-                    setHeaders: {
-                        Authorization: `Bearer ${currentUser.token}`,
-                    },
-                });
-            }
-        } else {
-            // add authorization header with jwt token if available
-            const currentUser = this.authfackservice.currentUserValue;
-            if (currentUser && currentUser.token) {
-                request = request.clone({
-                    setHeaders: {
-                        Authorization: `Bearer ${currentUser.token}`,
-                    },
-                });
-            }
+    intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+        // add authorization header with jwt token if available
+        const currentUser = this.authenticationService.currentUserValue;
+        console.log("TOKEN: "+currentUser);
+
+        if (currentUser) {
+            request = request.clone({
+                setHeaders: {
+                    Authorization: `Bearer ${currentUser}`
+                }
+            });
         }
         return next.handle(request);
     }

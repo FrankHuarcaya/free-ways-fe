@@ -9,8 +9,6 @@ const routes: Routes = [
     path: "",
     component: DefaultComponent
   },
-
-
   { path: 'dashboard', component: DefaultComponent },
   { path: 'dashboards', loadChildren: () => import('./dashboards/dashboards.module').then(m => m.DashboardsModule) },
   { path: 'maps', loadChildren: () => import('./maps/maps.module').then(m => m.MapsModule) },

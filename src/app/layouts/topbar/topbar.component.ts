@@ -208,7 +208,7 @@ export class TopbarComponent implements OnInit {
     } else {
       this.authService.logout();
     }
-    this.router.navigate(['/account/login']);
+    this.router.navigate(['/auth/login']);
   }
 
   /**

@@ -1,1 +1,16 @@
 
+
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+  }
+  
+  .container-fluid, .row, .col-lg-6, .card, .card-body {
+    height: 100%;
+  }
+  
+  google-map {
+    height: 100% !important;
+    width: 100% !important;
+  }

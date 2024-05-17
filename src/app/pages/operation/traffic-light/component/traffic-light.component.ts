@@ -5,6 +5,7 @@ import {TrafficLight} from "../models/traffic-light.model";
 import {Observable} from "rxjs";
 import {TrafficLightService} from "../services/traffic-light.service";
 import {NgbModal, NgbModalOptions} from "@ng-bootstrap/ng-bootstrap";
+import {first} from "rxjs/operators";
 @Component({
   selector: 'app-traffic-light',
   templateUrl: './traffic-light.component.html',
@@ -152,19 +153,30 @@ export class TrafficLightComponent implements OnInit{
   }
 
   listTrafficLight() {
-    this.service.listTrafficLights().subscribe({
-      next: (response) => {
-        console.log(response); // Imprime la respuesta completa en la consola
-        this.test = response.datos; // Asegúrate de que esta línea accede a los datos correctamente
-        console.log(this.test); // También puedes imprimir los datos específicos que estás asignando a this.test
-      },
-      error: (err) => {
-        this.errorMessage = 'Failed to load traffic lights';
-        console.error(err);
-      }
-    });
+    this.service.listTrafficLights()
+        .pipe(first())
+        .subscribe(
+            response => {
+              console.log("Response:", response);
+              if (response) {
+                this.trafficLight = response; // Asumiendo que tus datos están directamente en la respuesta
+              } else {
+                Swal.fire({
+                  icon: 'error',
+                  title: 'Error',
+                  text: 'No se pudieron obtener los semáforos.',
+                });
+              }
+            },
+            error => {
+              Swal.fire({
+                icon: 'error',
+                title: 'Error',
+                text: 'No se pudieron obtener los semáforos.',
+              });
+            }
+        );
   }
-
   registerCustomer(customers) {
 
   }

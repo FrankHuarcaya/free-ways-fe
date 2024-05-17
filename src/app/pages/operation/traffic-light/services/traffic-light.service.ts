@@ -44,14 +44,44 @@ export class TrafficLightService extends BaseService{
 
 
   //consume APIS
+  // Listar todos los TrafficLights
+  public listTrafficLights(): Observable<ResponseModel<any>> {
+    return this.httpClient.get(environment.server + environment.operation.trafficLight.list)
+        .pipe(map((responseModel: ResponseModel<any>) => {
+          return responseModel;
+        }), catchError(this.handleError));
+  }
 
-  // Obtener todos los semáforos
-  listTrafficLights(): Observable<ResponseModel<TrafficLight[]>> {
-    return this.httpClient.get<ResponseModel<TrafficLight[]>>(`${environment.operation.trafficLight.list}`,{withCredentials:true})
-      .pipe(
-        map(response => response),
-        catchError(this.handleError)
-      );
+  // Obtener un TrafficLight específico
+  public retrieveTrafficLight(id: number): Observable<ResponseModel<TrafficLight>> {
+    return this.httpClient.get(environment.server + environment.operation.trafficLight.list + id)
+        .pipe(map((responseModel: ResponseModel<TrafficLight>) => {
+          return responseModel;
+        }), catchError(this.handleError));
+  }
+
+  // Registrar un nuevo TrafficLight
+  public registerTrafficLight(trafficLight: TrafficLight): Observable<ResponseModel<any>> {
+    return this.httpClient.post(environment.server + environment.operation.trafficLight.register, trafficLight)
+        .pipe(map((responseModel: ResponseModel<any>) => {
+          return responseModel;
+        }), catchError(this.handleError));
+  }
+
+  // Actualizar un TrafficLight existente
+  public updateTrafficLight(id: number, trafficLight: TrafficLight): Observable<ResponseModel<any>> {
+    return this.httpClient.put(environment.server + environment.operation.trafficLight.update + id + '/', trafficLight)
+        .pipe(map((responseModel: ResponseModel<any>) => {
+          return responseModel;
+        }), catchError(this.handleError));
+  }
+
+  // Eliminar un TrafficLight
+  public deleteTrafficLight(id: number): Observable<ResponseModel<any>> {
+    return this.httpClient.delete(environment.server + environment.operation.trafficLight.delete + id)
+        .pipe(map((responseModel: ResponseModel<any>) => {
+          return responseModel;
+        }), catchError(this.handleError));
   }
 
 

@@ -6,6 +6,7 @@ import {Observable} from "rxjs";
 import {TrafficLightService} from "../services/traffic-light.service";
 import {NgbModal, NgbModalOptions} from "@ng-bootstrap/ng-bootstrap";
 import {first} from "rxjs/operators";
+import {DatePipe} from "@angular/common";
 @Component({
   selector: 'app-traffic-light',
   templateUrl: './traffic-light.component.html',
@@ -13,7 +14,7 @@ import {first} from "rxjs/operators";
 })
 export class TrafficLightComponent implements OnInit{
 
-  idCustomerOuput: number = 0;
+  idTrafficLightOuput: number = 0;
 
   errorMessage: string = '';
 
@@ -64,7 +65,7 @@ export class TrafficLightComponent implements OnInit{
       this.content = this.trafficLight;
       this.trafficLight = Object.assign([], x);
     });
-    this.idCustomerOuput = 0;
+    this.idTrafficLightOuput = 0;
 
     this.listTrafficLight();
     console.log("Test")
@@ -99,7 +100,7 @@ export class TrafficLightComponent implements OnInit{
       })
       .then(result => {
         if (result.value) {
-          this.deleteCustomer(id);
+          this.deleteTrafficLight(id);
         } else if (
           /* Read more about handling dismissals below */
           result.dismiss === Swal.DismissReason.cancel
@@ -141,7 +142,37 @@ export class TrafficLightComponent implements OnInit{
    * Save user
    */
   saveUser() {
+    this.submitted = true
+    if (this.trafficLightForm.valid) {
+      this.pipe = new DatePipe('en-US');
+      const status = this.trafficLightForm.get('status')?.value.toUpperCase();
+      const latitude = this.trafficLightForm.get('latitude')?.value;
+      const longitude = this.trafficLightForm.get('longitude')?.value;
+      const brand = this.trafficLightForm.get('brand')?.value;
+      const redTime = this.trafficLightForm.get('redTime')?.value;
+      const redGreen = this.trafficLightForm.get('redGreen')?.value;
 
+
+      let trafficLight = new TrafficLight();
+      trafficLight.status = status;
+      trafficLight.latitude = latitude;
+      trafficLight.longitude = longitude;
+      trafficLight.brand = brand;
+      trafficLight.redTime = redTime;
+      trafficLight.redGreen = redGreen;
+
+      const id = this.trafficLightForm.get('id')?.value;
+      if (id == '0') {
+        this.registerTrafficLight(trafficLight);
+      } else {
+        trafficLight.id = id;
+        this.updateTrafficLight(trafficLight);
+      }
+      this.modalService.dismissAll();
+      setTimeout(() => {
+        this.trafficLightForm.reset();
+      }, 2000);
+    }
   }
 
   /**
@@ -149,6 +180,24 @@ export class TrafficLightComponent implements OnInit{
    * @param content modal content
    */
   editDataGet(id: any, content: any) {
+    this.submitted = false;
+    this.pipe = new DatePipe('en-US');
+    this.enableInputs();
+    this.modalService.open(content, { size: 'lg', centered: true });
+    var modelTitle = document.querySelector('.modal-title') as HTMLAreaElement;
+    modelTitle.innerHTML = 'Actualizar semaforos';
+    var updateBtn = document.getElementById('add-btn') as HTMLAreaElement;
+    updateBtn.innerHTML = "Actualizar";
+    var listData = this.trafficLight.filter((data: { id: any; }) => data.id === id);
+
+    this.trafficLightForm.controls['id'].setValue(listData[0].id);
+    this.trafficLightForm.controls['status'].setValue(listData[0].status);
+    this.trafficLightForm.controls['latitude'].setValue(listData[0].latitude);
+    this.trafficLightForm.controls['longitude'].setValue(listData[0].longitude);
+    this.trafficLightForm.controls['brand'].setValue(listData[0].brand);
+    this.trafficLightForm.controls['redTime'].setValue(listData[0].redTime);
+    this.trafficLightForm.controls['redGreen'].setValue(listData[0].redGreen);
+    this.idTrafficLightOuput = id;
 
   }
 
@@ -177,11 +226,43 @@ export class TrafficLightComponent implements OnInit{
             }
         );
   }
-  registerCustomer(customers) {
+  registerTrafficLight(trafficLight) {
+    this.service.registerTrafficLight(trafficLight)
+      .pipe(first())
+      .subscribe(response => {
+        this.listTrafficLight();
+        Swal.fire({
+          icon: 'success',
+          title: 'Registrado',
+          text: 'Semáforo registrado correctamente.',
+        });
+      }, error => {
+        Swal.fire({
+          icon: 'error',
+          title: 'Error',
+          text: 'No se pudo registrar el semáforo.',
+        });
+      });
 
   }
 
-  updateCustomer(customers) {
+  updateTrafficLight(trafficLight) {
+    this.service.updateTrafficLight(trafficLight)
+      .pipe(first())
+      .subscribe(response => {
+        this.listTrafficLight();
+        Swal.fire({
+          icon: 'success',
+          title: 'Actualizado',
+          text: 'Semáforo actualizado correctamente.',
+        });
+      }, error => {
+        Swal.fire({
+          icon: 'error',
+          title: 'Error',
+          text: 'No se pudo actualizar el semáforo.',
+        });
+      });
   }
 
   clear() {
@@ -202,10 +283,25 @@ export class TrafficLightComponent implements OnInit{
     this.trafficLightForm.controls['brand'].enable();
     this.trafficLightForm.controls['redTime'].enable();
     this.trafficLightForm.controls['redGreen'].enable();
-
   }
 
-  deleteCustomer(id) {
+  deleteTrafficLight(id) {
+    this.service.deleteTrafficLight(id)
+      .pipe(first())
+      .subscribe(response => {
+        this.listTrafficLight();
+        Swal.fire({
+          icon: 'success',
+          title: 'Eliminado',
+          text: 'Semáforo eliminado correctamente.',
+        });
+      }, error => {
+        Swal.fire({
+          icon: 'error',
+          title: 'Error',
+          text: 'No se pudo eliminar el semáforo.',
+        });
+      });
   }
 
 }

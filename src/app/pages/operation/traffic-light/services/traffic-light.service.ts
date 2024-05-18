@@ -69,11 +69,11 @@ export class TrafficLightService extends BaseService{
   }
 
   // Actualizar un TrafficLight existente
-  public updateTrafficLight(id: number, trafficLight: TrafficLight): Observable<ResponseModel<any>> {
-    return this.httpClient.put(environment.server + environment.operation.trafficLight.update + id + '/', trafficLight)
-        .pipe(map((responseModel: ResponseModel<any>) => {
-          return responseModel;
-        }), catchError(this.handleError));
+  public updateTrafficLight(trafficLight: TrafficLight): Observable<ResponseModel<any>> {
+    return this.httpClient.put(environment.server + environment.operation.trafficLight.update + trafficLight.id + '/', trafficLight)
+      .pipe(map((responseModel: ResponseModel<any>) => {
+        return responseModel;
+      }), catchError(this.handleError));
   }
 
   // Eliminar un TrafficLight

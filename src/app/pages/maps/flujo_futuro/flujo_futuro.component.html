@@ -1,0 +1,14 @@
+<div class="container-fluid" style="height: 100vh;">
+    <app-page-title title="Flujo Futuro" [breadcrumbItems]="breadCrumbItems"></app-page-title>
+  
+    <div class="row">
+      <google-map id="map" #mapInstance="googleMap" height="100%" width="100%" [options]="mapOptions">
+        <map-circle [center]="circleCenter"
+            [radius]=50></map-circle>
+          <map-info-window #infoWindow="mapInfoWindow" [options]="{content: infoContent}"> </map-info-window> 
+      </google-map>
+  
+      <!-- end col -->
+    </div>
+    <!-- end row -->
+  </div>

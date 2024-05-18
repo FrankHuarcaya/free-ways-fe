@@ -4,6 +4,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { GoogleComponent } from './google/google.component';
 import { LeafletComponent } from "./leaflet/leaflet.component";
 import { AmchartsComponent } from './amcharts/amcharts.component';
+import { FlujoFuturoComponent } from './flujo_futuro/flujo_futuro.component';
 
 const routes: Routes = [
     {
@@ -18,7 +19,12 @@ const routes: Routes = [
     {
         path: "AmChart",
         component: AmchartsComponent
+    },
+    {
+        path: "flujo_futuro",
+        component: FlujoFuturoComponent
     }
+    
 ];
 
 @NgModule({

@@ -11,10 +11,11 @@ import { MapsRoutingModule } from './maps-routing.module';
 import { GoogleComponent } from './google/google.component';
 import { LeafletComponent } from './leaflet/leaflet.component';
 import { AmchartsComponent } from './amcharts/amcharts.component';
+import { FlujoFuturoComponent } from './flujo_futuro/flujo_futuro.component';
 
 @NgModule({
   declarations: [GoogleComponent, LeafletComponent,
-    AmchartsComponent],
+    AmchartsComponent,FlujoFuturoComponent],
   imports: [
     CommonModule,
     MapsRoutingModule,

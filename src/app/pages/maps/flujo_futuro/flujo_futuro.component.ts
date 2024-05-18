@@ -12,15 +12,15 @@ interface MarkerProperties {
   icon?: google.maps.Icon;
 };
 @Component({
-  selector: 'app-google',
-  templateUrl: './google.component.html',
-  styleUrls: ['./google.component.scss']
+  selector: 'app-flujo_futuro',
+  templateUrl: './flujo_futuro.component.html',
+  styleUrls: ['./flujo_futuro.component.scss']
 })
 
 /**
  * Google component
  */
-export class GoogleComponent implements OnInit,AfterViewInit  {
+export class FlujoFuturoComponent implements OnInit,AfterViewInit  {
   @ViewChild(GoogleMap) mapComponent: GoogleMap;
   @ViewChild(MapInfoWindow) infoWindow: MapInfoWindow;
   @Input() pitch: number = 10;
@@ -45,7 +45,7 @@ export class GoogleComponent implements OnInit,AfterViewInit  {
 
 
   ngOnInit(): void {
-    this.breadCrumbItems = [{ label: 'Maps' }, { label: 'Google Maps', active: true }];
+    this.breadCrumbItems = [{ label: 'Maps' }, { label: 'Flujo Futuro', active: true }];
 
   }
 
@@ -60,7 +60,7 @@ export class GoogleComponent implements OnInit,AfterViewInit  {
 
 
   mapOptions: google.maps.MapOptions = {
-    mapId: "34e63ce8f10982d",
+    mapId: "f2e2bcb142ab033c",
     center: { lat: -12.04318, lng: -77.02824 },
     zoom: 12,
     zoomControl: false,

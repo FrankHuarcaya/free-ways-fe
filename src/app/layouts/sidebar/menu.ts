@@ -41,6 +41,7 @@ export const MENU: MenuItem[] = [
                 link: '/dashboards/jobs',
                 parentId: 2,
             },
+
         ]
     },
     {
@@ -65,7 +66,14 @@ export const MENU: MenuItem[] = [
                 label: 'MENUITEMS.MAPS.LIST.AMCHARTS',
                 link: '/maps/AmChart',
                 parentId: 140
-            }
+            },
+            {
+              id: 143,
+              label: 'MENUITEMS.DASHBOARDS.LIST.JOBS',
+              link: '/maps/flujo_futuro',
+              parentId: 2,
+            },
+
         ]
     },
 

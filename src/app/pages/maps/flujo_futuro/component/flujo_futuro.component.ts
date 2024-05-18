@@ -1,5 +1,7 @@
 import { Component, OnInit, Input, Inject, PLATFORM_ID, AfterViewInit, ViewChild, SimpleChanges, OnChanges } from '@angular/core';
 import { GoogleMap, MapInfoWindow, MapMarker } from '@angular/google-maps';
+import {FlujoFuturoService} from "../services/flujo-futuro.service";
+import {TrafficLightService} from "../../../operation/traffic-light/services/traffic-light.service";
 
 
 
@@ -40,6 +42,7 @@ export class FlujoFuturoComponent implements OnInit,AfterViewInit  {
   breadCrumbItems: Array<{}>;
   infoContent = `<h1>Tiempo Semafórico Actual</h1><h2>🔴 Ciclo Rojo: ${this.redCycle}s</h2><h2>🟢 Ciclo Verde: ${this.greenCycle}s</h2>`;
   constructor(@Inject(PLATFORM_ID) private platformId: any,
+    private service:TrafficLightService,
     // private mapsAPILoader: MapsAPILoader
   ) { }
 
@@ -69,17 +72,17 @@ export class FlujoFuturoComponent implements OnInit,AfterViewInit  {
     //maxZoom: 20,
   };
 
-  openInfo(marker: MapMarker) { 
-    
+  openInfo(marker: MapMarker) {
+
     if(this.infoWindow != undefined)
       this.infoWindow.open(marker);
   }
-  
 
-  
+
+
   markers: google.maps.MarkerOptions[] = [
     { position: { lat: -12.091756905999354, lng: -76.95300742653058 },
-      title:'title', 
+      title:'title',
       icon:{url:this.tlIcon, scaledSize: new google.maps.Size(50, 50)},
     }, // Eiffel Tower
     {

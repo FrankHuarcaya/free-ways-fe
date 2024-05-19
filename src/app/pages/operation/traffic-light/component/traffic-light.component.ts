@@ -17,6 +17,8 @@ export class TrafficLightComponent implements OnInit{
   idTrafficLightOuput: number = 0;
 
   errorMessage: string = '';
+  selectedLatitude:any;
+  selectedLongitude:any;
 
 
   // bread crumb items
@@ -198,6 +200,9 @@ export class TrafficLightComponent implements OnInit{
     this.trafficLightForm.controls['redTime'].setValue(listData[0].redTime);
     this.trafficLightForm.controls['redGreen'].setValue(listData[0].redGreen);
     this.idTrafficLightOuput = id;
+    // Centramos el mapa en las coordenadas actuales
+    this.selectedLatitude = listData[0].latitude;
+    this.selectedLongitude = listData[0].longitude;
 
   }
 
@@ -304,11 +309,11 @@ export class TrafficLightComponent implements OnInit{
       });
   }
 
-  onLocationSelected(event: { latitude: number, longitude: number }) {
-    this.trafficLightForm.patchValue({
-      latitude: event.latitude,
-      longitude: event.longitude
-    });
+  updateLocation(event: {latitude: number, longitude: number}) {
+    this.selectedLatitude = event.latitude;
+    this.selectedLongitude = event.longitude;
+    this.trafficLightForm.controls['latitude'].setValue(this.selectedLatitude);
+    this.trafficLightForm.controls['longitude'].setValue(this.selectedLongitude);
   }
 
 }

@@ -168,7 +168,9 @@
 
       <div class="row">
         <div class="col-12">
-          <app-map-picker (locationSelected)="onLocationSelected($event)"> </app-map-picker>
+          <app-map-picker [latitude]="trafficLightForm.controls['latitude'].value"
+                          [longitude]="trafficLightForm.controls['longitude'].value"
+                          (locationSelected)="updateLocation($event)"> </app-map-picker>
         </div>
       </div>
 

@@ -304,4 +304,11 @@ export class TrafficLightComponent implements OnInit{
       });
   }
 
+  onLocationSelected(event: { latitude: number, longitude: number }) {
+    this.trafficLightForm.patchValue({
+      latitude: event.latitude,
+      longitude: event.longitude
+    });
+  }
+
 }

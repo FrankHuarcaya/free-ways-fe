@@ -69,7 +69,7 @@ export const MENU: MenuItem[] = [
             },
             {
               id: 143,
-              label: 'MENUITEMS.DASHBOARDS.LIST.JOBS',
+              label: 'Prediccion de trafico',
               link: '/maps/flujo_futuro',
               parentId: 2,
             },
@@ -79,12 +79,12 @@ export const MENU: MenuItem[] = [
 
   {
     id: 141,
-    label: 'MENUITEMS.MAPS.TEXT',
+    label: 'Operaciones',
     icon: 'bx-map',
     subItems: [
       {
         id: 141,
-        label: 'MENUITEMS.MAPS.LIST.GOOGLEMAP',
+        label: 'Semaforos',
         link: '/operation/traffic-light',
         parentId: 140
       }

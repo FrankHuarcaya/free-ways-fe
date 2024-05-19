@@ -3,11 +3,11 @@ import { latLng, Map, marker, Marker, tileLayer,icon  } from 'leaflet';
 @Component({
   selector: 'app-map-picker',
   templateUrl: './map-picker.component.html',
-  styleUrls: ['./map-picker.component.css']
+  styleUrls: ['./map-picker.component.scss']
 })
 export class MapPickerComponent implements OnChanges{
-    @Input() latitude: number = -12.071414815101212; // Valor predeterminado
-    @Input() longitude: number = -436.95697429005105; // Valor predeterminado
+    @Input() latitude: number = -12.043333; // Valor predeterminado
+    @Input() longitude: number = -77.028333; // Valor predeterminado
     @Output() locationSelected = new EventEmitter<{ latitude: number, longitude: number }>();
 
     options = {

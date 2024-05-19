@@ -1,5 +1,10 @@
 import { Component, OnInit, Input, Inject, PLATFORM_ID, AfterViewInit, ViewChild, SimpleChanges, OnChanges } from '@angular/core';
 import { GoogleMap, MapInfoWindow, MapMarker } from '@angular/google-maps';
+import { TrafficLightService } from '../../operation/traffic-light/services/traffic-light.service';
+import { TrafficLight } from '../../operation/traffic-light/models/traffic-light.model';
+import { Observable } from 'rxjs';
+import Swal from "sweetalert2";
+import {first} from "rxjs/operators";
 
 
 
@@ -27,25 +32,40 @@ export class GoogleComponent implements OnInit,AfterViewInit  {
   @Input() scrollwheel: boolean = false; //coordenadas de Lima
   longitude = -77.028333;
   latitude = -12.043333;
-
   tlIcon: string = 'assets/images/traffic-light.png';
   redCycle: number = 262;   // Tiempo del ciclo rojo en segundos
   greenCycle: number = 195
-  trafficMap : any;
+
+  trafficLightList!: Observable<TrafficLight[]>
+  trafficLight: any;
+  content?: any;
+
   currentZoom: number;
   minZoomVisible: number = 18;
   markersVisible: boolean = false;
   circleCenter: google.maps.LatLngLiteral = { lat: -12.091756905999354, lng: -76.95300742653058 };
+
   // bread crumb items
   breadCrumbItems: Array<{}>;
   infoContent = `<h1>Tiempo Semafórico Actual</h1><h2>🔴 Ciclo Rojo: ${this.redCycle}s</h2><h2>🟢 Ciclo Verde: ${this.greenCycle}s</h2>`;
-  constructor(@Inject(PLATFORM_ID) private platformId: any,
+  constructor(@Inject(PLATFORM_ID) 
+    private platformId: any,
+    public tlService: TrafficLightService,
     // private mapsAPILoader: MapsAPILoader
   ) { }
 
 
   ngOnInit(): void {
     this.breadCrumbItems = [{ label: 'Maps' }, { label: 'Google Maps', active: true }];
+    this.trafficLightList = this.tlService.countries$
+
+    this.trafficLightList.subscribe(x => {
+      this.content = this.trafficLight;
+      this.trafficLight = Object.assign([], x);
+    });
+
+ 
+    this.listTrafficLight();
 
   }
 
@@ -78,7 +98,7 @@ export class GoogleComponent implements OnInit,AfterViewInit  {
 
   
   markers: google.maps.MarkerOptions[] = [
-    { position: { lat: -12.091756905999354, lng: -76.95300742653058 },
+    /*{ position: { lat: -12.091756905999354, lng: -76.95300742653058 },
       title:'title', 
       icon:{url:this.tlIcon, scaledSize: new google.maps.Size(50, 50)},
     }, // Eiffel Tower
@@ -87,8 +107,42 @@ export class GoogleComponent implements OnInit,AfterViewInit  {
       title: 'title',
       icon: { url: this.tlIcon, scaledSize: new google.maps.Size(50, 50)},
       visible: false
-    }, // Louvre Museum
+    }, // Louvre Museum*/
     ];
+    
+    createTrafficLightMarkers(tlList: any) {
+      tlList.forEach((tl: any) => {
+        console.log(tl)
+        this.markers.push({position: { lat: Number(tl.latitude), lng: Number(tl.longitude)}, icon: { url: this.tlIcon, scaledSize: new google.maps.Size(50, 50)}});
+      });
+      console.log("createTrafficLightMarkers",this.markers);
+    }
+    listTrafficLight() {
+      this.tlService.listTrafficLights()
+          .pipe(first())
+          .subscribe(
+              response => {
+                console.log("Response:", response);
+                if (response) {
+                  this.trafficLight = response; // Asumiendo que tus datos están directamente en la respuesta
+                  this.createTrafficLightMarkers(response);
+                } else {
+                  Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: 'No se pudieron obtener los semáforos.',
+                  });
+                }
+              },
+              error => {
+                Swal.fire({
+                  icon: 'error',
+                  title: 'Error',
+                  text: 'No se pudieron obtener los semáforos.',
+                });
+              }
+          );
+    }
     private addTrafficLayer(): void {
       const trafficLayer = new google.maps.TrafficLayer();
       trafficLayer.setMap(this.mapComponent.googleMap);

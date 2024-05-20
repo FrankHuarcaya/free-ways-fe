@@ -38,6 +38,7 @@ export class GoogleComponent implements OnInit,AfterViewInit  {
 
   trafficLightList!: Observable<TrafficLight[]>
   trafficLight: any;
+  trafficLightInfo: any;
   content?: any;
 
   currentZoom: number;
@@ -90,9 +91,9 @@ export class GoogleComponent implements OnInit,AfterViewInit  {
   };
 
   openInfo(marker: MapMarker) { 
-    
     if(this.infoWindow != undefined)
       this.infoWindow.open(marker);
+    this.createTrafficLightMarkerInfo(marker)
   }
   
 
@@ -113,9 +114,27 @@ export class GoogleComponent implements OnInit,AfterViewInit  {
     createTrafficLightMarkers(tlList: any) {
       tlList.forEach((tl: any) => {
         console.log(tl)
-        this.markers.push({position: { lat: Number(tl.latitude), lng: Number(tl.longitude)}, icon: { url: this.tlIcon, scaledSize: new google.maps.Size(50, 50)}});
+        this.markers.push({position: { lat: Number(tl.latitude), lng: Number(tl.longitude)},title:tl.id ,icon: { url: this.tlIcon, scaledSize: new google.maps.Size(50, 50)}});
       });
       console.log("createTrafficLightMarkers",this.markers);
+    }
+    createTrafficLightMarkerInfo(marker: any) {
+      let tlInfo
+      this.tlService.retrieveTrafficLight(marker._title).pipe(first()).subscribe(
+        (data) => {
+          tlInfo = data;
+          this.infoContent = `<h1>Tiempo Semafórico Actual</h1><h2>🔴 Ciclo Rojo: ${tlInfo.redTime}s</h2><h2>🟢 Ciclo Verde: ${tlInfo.redGreen}s</h2>`;
+        },
+        (error) => {
+          console.log(error);
+        },
+        () => {
+          console.log("Traffic Light Info:", tlInfo);
+        }
+      )
+      console.log(tlInfo);
+      //this.infoContent =`<h1>Tiempo Semafórico Actual</h1><h2>🔴 Ciclo Rojo: ${tlInfo.redTime}s</h2><h2>🟢 Ciclo Verde: ${this.redGreen}s</h2>`
+     
     }
     listTrafficLight() {
       this.tlService.listTrafficLights()

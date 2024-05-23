@@ -87,6 +87,18 @@ export const MENU: MenuItem[] = [
         label: 'Semaforos',
         link: '/operation/traffic-light',
         parentId: 140
+      },
+      {
+        id: 142,
+        label: 'Avenidas',
+        link: '/operation/avenue',
+        parentId: 143
+      },
+      {
+        id: 144,
+        label: 'Interseciones',
+        link: '/operation/intersection',
+        parentId: 145
       }
     ]
   },

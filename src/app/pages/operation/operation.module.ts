@@ -7,8 +7,10 @@ import {NgbDatepickerModule, NgbModalModule, NgbNavModule, NgbPaginationModule} 
 import {UIModule} from "../../shared/ui/ui.module";
 import {NgSelectModule} from "@ng-select/ng-select";
 import {MapsModule} from "../maps/maps.module";
+import { AvenueComponent } from './avenue/component/avenue.component';
+import { IntersectionComponent } from './intersection/component/intersection.component';
 @NgModule({
-  declarations: [TrafficLightComponent],
+  declarations: [TrafficLightComponent, AvenueComponent, IntersectionComponent],
     imports: [
         CommonModule,
         OperationRoutingModule,

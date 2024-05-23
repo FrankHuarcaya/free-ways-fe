@@ -214,6 +214,7 @@ export class TrafficLightComponent implements OnInit{
               console.log("Response:", response);
               if (response) {
                 this.trafficLight = response; // Asumiendo que tus datos están directamente en la respuesta
+                this.service.paginationTable(this.trafficLight);
               } else {
                 Swal.fire({
                   icon: 'error',

@@ -30,8 +30,25 @@ export const environment = {
       register: '/operation/trafficlights/',
       update: '/operation/trafficlights/',
       delete: '/operation/trafficlights/'
-    }
-
+    },
+    intersection:{
+      list: '/operation/intersection/',
+      register: '/operation/intersection/',
+      update: '/operation/intersection/',
+      delete: '/operation/intersection/'
+    },
+    laneGroup:{
+      list: '/operation/lane-group/',
+      register: '/operation/lane-group/',
+      update: '/operation/lane-group/',
+      delete: '/operation/lane-group/'
+    },
+    avenue:{
+      list: '/operation/avenue/',
+      register: '/operation/avenue/',
+      update: '/operation/avenue/',
+      delete: '/operation/avenue/'
+    },
   }
 };
 

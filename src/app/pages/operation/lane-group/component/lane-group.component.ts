@@ -147,6 +147,8 @@ export class LaneGroupComponent implements OnInit{
       centered: true,
       size: 'lg'
     };
+    this.selectIntersection=null;
+    this.selectAvenue=null;
     this.modalService.open(content, ngbModalOptions);
   }
 

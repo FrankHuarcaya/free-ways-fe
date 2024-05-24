@@ -9,6 +9,8 @@ import {DatePipe} from "@angular/common";
 import {first} from "rxjs/operators";
 import {Avenue} from "../models/avenue.model";
 import {AvenueService} from "../services/avenue.service";
+import {Intersection} from "../../intersection/models/intersection.model";
+import {IntersectionService} from "../../intersection/services/intersection.service";
 
 @Component({
   selector: 'app-avenue',
@@ -42,7 +44,10 @@ export class AvenueComponent implements OnInit{
   total: Observable<number>;
   pipe: any;
 
+
+
   constructor(public service: AvenueService,
+              private intersectionServices:IntersectionService,
               private modalService: NgbModal,
               private formBuilder: UntypedFormBuilder) {
     this.avenueList = service.countries$;
@@ -153,6 +158,7 @@ export class AvenueComponent implements OnInit{
 
 
       let avenue = new Avenue();
+
       avenue.name = name;
       avenue.description = description;
       avenue.lengthMeters = lengthMeters;
@@ -191,6 +197,8 @@ export class AvenueComponent implements OnInit{
     this.avenueForm.controls['name'].setValue(listData[0].name);
     this.avenueForm.controls['description'].setValue(listData[0].description);
     this.avenueForm.controls['lengthMeters'].setValue(listData[0].lengthMeters);
+
+
 
     this.idAvenueOuput = id;
 

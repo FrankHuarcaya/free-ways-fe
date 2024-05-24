@@ -94,6 +94,9 @@
       <input type="text" hidden formControlName="id" value="0" />
 
       <div class="row">
+
+
+
         <div class="col-md-6">
 
           <div class="mb-3">
@@ -108,6 +111,21 @@
 
         <div class="col-md-6">
           <div class="mb-3">
+            <label for="customername-field" class="form-label">longitud</label>
+            <input type="text" id="customername-field" class="form-control" formControlName="lengthMeters"
+                   autocomplete="disabled" />
+          </div>
+
+        </div>
+
+      </div>
+
+      <div class="row">
+
+
+
+        <div class="col-md-6">
+          <div class="mb-3">
             <label for="customername-field" class="form-label">descripcion</label>
             <input type="text" id="customername-field" class="form-control" required formControlName="description"
                    [ngClass]="{ 'is-invalid': submitted && form['description'].errors }" autocomplete="disabled" />
@@ -115,18 +133,6 @@
               <div *ngIf="form['description'].errors['required']">descripcion es requerido</div>
             </div>
           </div>
-        </div>
-      </div>
-
-      <div class="row">
-
-        <div class="col-md-6">
-          <div class="mb-3">
-            <label for="customername-field" class="form-label">longitud</label>
-            <input type="text" id="customername-field" class="form-control" formControlName="lengthMeters"
-                   autocomplete="disabled" />
-          </div>
-
         </div>
 
       </div>

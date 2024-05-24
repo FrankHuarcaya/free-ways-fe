@@ -1,3 +1,5 @@
+import {Intersection} from "../../intersection/models/intersection.model";
+
 export class TrafficLight {
   id: any;
   status:string;
@@ -6,4 +8,5 @@ export class TrafficLight {
   brand:string;
   redTime:number;
   redGreen:number;
+  intersection:Intersection;
 }

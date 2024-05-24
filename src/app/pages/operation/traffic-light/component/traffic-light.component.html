@@ -29,6 +29,7 @@
               <thead class="table-light">
               <tr>
                 <th class="align-middle">ID</th>
+                <th class="align-middle">Nombre intersecion</th>
                 <th class="align-middle">Estado</th>
                 <th class="align-middle">Latitude</th>
                 <th class="align-middle">longitude</th>
@@ -43,6 +44,7 @@
                 <td>
                   <a href="javascript: void(0);" class="text-body fw-bold">{{data.id}}</a>
                 </td>
+                <td>{{data.intersection?.name}}</td>
                 <td>{{data.status}}</td>
                 <td>{{data.latitude}}</td>
                 <td>{{data.longitude}}</td>
@@ -98,6 +100,24 @@
   <form (ngSubmit)="saveUser()" [formGroup]="trafficLightForm">
     <div class="modal-body">
       <input type="text" hidden formControlName="id" value="0" />
+
+
+      <div class="row">
+        <div class="col-md-6">
+          <div class="mb-3">
+            <label for="customername-field" class="form-label">Interseccion</label>
+            <ng-select [items]="intersection" bindLabel="name" placeholder="Seleccione interseccion"
+                       [(ngModel)]="selectIntersection" id="customername-field" [clearable]="false" required
+                       formControlName="intersection"
+                       [ngClass]="{ 'is-invalid': submitted && form['intersection'].errors }">
+            </ng-select>
+            <div *ngIf="submitted && form['intersection'].errors" class="invalid-feedback" align="left">
+              <div *ngIf="form['intersection'].errors['required']">Intersecion es requerido</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
 
       <div class="row">
         <div class="col-md-6">

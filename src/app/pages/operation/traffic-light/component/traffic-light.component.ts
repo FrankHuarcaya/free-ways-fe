@@ -7,6 +7,8 @@ import {TrafficLightService} from "../services/traffic-light.service";
 import {NgbModal, NgbModalOptions} from "@ng-bootstrap/ng-bootstrap";
 import {first} from "rxjs/operators";
 import {DatePipe} from "@angular/common";
+import {Intersection} from "../../intersection/models/intersection.model";
+import {IntersectionService} from "../../intersection/services/intersection.service";
 @Component({
   selector: 'app-traffic-light',
   templateUrl: './traffic-light.component.html',
@@ -39,7 +41,11 @@ export class TrafficLightComponent implements OnInit{
   total: Observable<number>;
   pipe: any;
 
+  intersection?:any;
+  selectIntersection=null;
+
   constructor(public service: TrafficLightService,
+              private intersectionServices:IntersectionService,
               private modalService: NgbModal,
               private formBuilder: UntypedFormBuilder) {
     this.trafficLightList = service.countries$;
@@ -60,6 +66,8 @@ export class TrafficLightComponent implements OnInit{
       brand: [''],
       redTime: ['',[Validators.required]],
       redGreen: ['',[Validators.required]],
+      intersection: ['', [Validators.required]],
+
       btnSave: []
     });
 
@@ -69,6 +77,7 @@ export class TrafficLightComponent implements OnInit{
     });
     this.idTrafficLightOuput = 0;
 
+    this.listIntersection();
     this.listTrafficLight();
     console.log("Test")
   }
@@ -130,6 +139,7 @@ export class TrafficLightComponent implements OnInit{
       centered: true,
       size: 'lg'
     };
+    this.selectIntersection=null;
     this.modalService.open(content, ngbModalOptions);
   }
 
@@ -147,6 +157,7 @@ export class TrafficLightComponent implements OnInit{
     this.submitted = true
     if (this.trafficLightForm.valid) {
       this.pipe = new DatePipe('en-US');
+      const intersectionId = this.selectIntersection.id;
       const status = this.trafficLightForm.get('status')?.value.toUpperCase();
       const latitude = this.trafficLightForm.get('latitude')?.value;
       const longitude = this.trafficLightForm.get('longitude')?.value;
@@ -156,6 +167,11 @@ export class TrafficLightComponent implements OnInit{
 
 
       let trafficLight = new TrafficLight();
+      let intersection=new Intersection();
+      intersection.id=intersectionId;
+
+      trafficLight.intersection = intersectionId;
+
       trafficLight.status = status;
       trafficLight.latitude = latitude;
       trafficLight.longitude = longitude;
@@ -200,6 +216,10 @@ export class TrafficLightComponent implements OnInit{
     this.trafficLightForm.controls['redTime'].setValue(listData[0].redTime);
     this.trafficLightForm.controls['redGreen'].setValue(listData[0].redGreen);
     this.idTrafficLightOuput = id;
+
+
+    this.selectIntersection=listData[0].intersection;
+
     // Centramos el mapa en las coordenadas actuales
     this.selectedLatitude = listData[0].latitude;
     this.selectedLongitude = listData[0].longitude;
@@ -273,6 +293,7 @@ export class TrafficLightComponent implements OnInit{
 
   clear() {
     this.trafficLightForm.controls['id'].setValue("0");
+    this.trafficLightForm.controls['intersection'].setValue(null);
     this.trafficLightForm.controls['status'].setValue(null);
     this.trafficLightForm.controls['latitude'].setValue("");
     this.trafficLightForm.controls['longitude'].setValue("");
@@ -283,6 +304,7 @@ export class TrafficLightComponent implements OnInit{
 
   enableInputs() {
     this.trafficLightForm.controls['id'].enable();
+    this.trafficLightForm.controls['intersection'].enable();
     this.trafficLightForm.controls['status'].enable();
     this.trafficLightForm.controls['latitude'].enable();
     this.trafficLightForm.controls['longitude'].enable();
@@ -315,6 +337,32 @@ export class TrafficLightComponent implements OnInit{
     this.selectedLongitude = event.longitude;
     this.trafficLightForm.controls['latitude'].setValue(this.selectedLatitude);
     this.trafficLightForm.controls['longitude'].setValue(this.selectedLongitude);
+  }
+
+  listIntersection() {
+    this.intersectionServices.listIntersection()
+      .pipe(first())
+      .subscribe(
+        response => {
+          if (response) {
+            this.intersection = response; // Asumiendo que tus datos están directamente en la respuesta
+            this.service.paginationTable(this.intersection);
+          } else {
+            Swal.fire({
+              icon: 'error',
+              title: 'Error',
+              text: 'No se pudieron obtener los semáforos.',
+            });
+          }
+        },
+        error => {
+          Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: 'No se pudieron obtener los semáforos.',
+          });
+        }
+      );
   }
 
 }

@@ -9,8 +9,9 @@ import {NgSelectModule} from "@ng-select/ng-select";
 import {MapsModule} from "../maps/maps.module";
 import { AvenueComponent } from './avenue/component/avenue.component';
 import { IntersectionComponent } from './intersection/component/intersection.component';
+import { LaneGroupComponent } from './lane-group/component/lane-group.component';
 @NgModule({
-  declarations: [TrafficLightComponent, AvenueComponent, IntersectionComponent],
+  declarations: [TrafficLightComponent, AvenueComponent, IntersectionComponent, LaneGroupComponent],
     imports: [
         CommonModule,
         OperationRoutingModule,

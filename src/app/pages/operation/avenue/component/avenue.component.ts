@@ -59,7 +59,7 @@ export class AvenueComponent implements OnInit{
       id: ['0', [Validators.required]],
       name: ['', [Validators.required]],
       description: ['', [Validators.required]],
-      length_meters: ['',[Validators.required]],
+      lengthMeters: ['',[Validators.required]],
       btnSave: []
     });
 
@@ -149,13 +149,13 @@ export class AvenueComponent implements OnInit{
       this.pipe = new DatePipe('en-US');
       const name = this.avenueForm.get('name')?.value.toUpperCase();
       const description = this.avenueForm.get('description')?.value;
-      const length_meters = this.avenueForm.get('length_meters')?.value;
+      const lengthMeters = this.avenueForm.get('lengthMeters')?.value;
 
 
       let avenue = new Avenue();
       avenue.name = name;
       avenue.description = description;
-      avenue.length_meters = length_meters;
+      avenue.lengthMeters = lengthMeters;
 
 
       const id = this.avenueForm.get('id')?.value;
@@ -190,7 +190,7 @@ export class AvenueComponent implements OnInit{
     this.avenueForm.controls['id'].setValue(listData[0].id);
     this.avenueForm.controls['name'].setValue(listData[0].name);
     this.avenueForm.controls['description'].setValue(listData[0].description);
-    this.avenueForm.controls['length_meters'].setValue(listData[0].length_meters);
+    this.avenueForm.controls['lengthMeters'].setValue(listData[0].lengthMeters);
 
     this.idAvenueOuput = id;
 
@@ -264,7 +264,7 @@ export class AvenueComponent implements OnInit{
     this.avenueForm.controls['id'].setValue("0");
     this.avenueForm.controls['name'].setValue(null);
     this.avenueForm.controls['description'].setValue("");
-    this.avenueForm.controls['length_meters'].setValue("");
+    this.avenueForm.controls['lengthMeters'].setValue("");
 
   }
 
@@ -272,7 +272,7 @@ export class AvenueComponent implements OnInit{
     this.avenueForm.controls['id'].enable();
     this.avenueForm.controls['name'].enable();
     this.avenueForm.controls['description'].enable();
-    this.avenueForm.controls['length_meters'].enable();
+    this.avenueForm.controls['lengthMeters'].enable();
 
   }
 

@@ -99,7 +99,13 @@ export const MENU: MenuItem[] = [
         label: 'Interseciones',
         link: '/operation/intersection',
         parentId: 145
-      }
+      },
+        {
+            id: 146,
+            label: 'Grupo carriles',
+            link: '/operation/lane-group',
+            parentId: 147
+        }
     ]
   },
 

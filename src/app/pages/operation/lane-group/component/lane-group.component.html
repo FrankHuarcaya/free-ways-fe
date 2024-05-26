@@ -30,6 +30,7 @@
                             <tr>
                                 <th class="align-middle">ID</th>
                                 <th class="align-middle">Nombre intersecion</th>
+                                <th class="align-middle">Avenida</th>
                                 <th class="align-middle">Direcion</th>
                                 <th class="align-middle">Capacidad</th>
                                 <th class="align-middle">Numero carriles</th>
@@ -41,8 +42,9 @@
                                 <td>
                                     <a href="javascript: void(0);" class="text-body fw-bold">{{data.id}}</a>
                                 </td>
-                                <td>{{data.avenue.name}}</td>
-                                <td>{{data.direction}}</td>
+                                <td>{{data.intersection?.name}}</td>
+                              <td>{{data.avenue.name}}</td>
+                              <td>{{data.direction}}</td>
                                 <td>{{data.capacity}}</td>
                                 <td>{{data.numLanes}}</td>
                                 <td>

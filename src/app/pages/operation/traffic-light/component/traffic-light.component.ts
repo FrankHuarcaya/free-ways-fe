@@ -9,6 +9,8 @@ import {first} from "rxjs/operators";
 import {DatePipe} from "@angular/common";
 import {Intersection} from "../../intersection/models/intersection.model";
 import {IntersectionService} from "../../intersection/services/intersection.service";
+import {Avenue} from "../../avenue/models/avenue.model";
+import {AvenueService} from "../../avenue/services/avenue.service";
 @Component({
   selector: 'app-traffic-light',
   templateUrl: './traffic-light.component.html',
@@ -44,7 +46,11 @@ export class TrafficLightComponent implements OnInit{
   intersection?:any;
   selectIntersection=null;
 
+  avenue?:any;
+  selectAvenue=null;
+
   constructor(public service: TrafficLightService,
+              private avenueService:AvenueService,
               private intersectionServices:IntersectionService,
               private modalService: NgbModal,
               private formBuilder: UntypedFormBuilder) {
@@ -67,6 +73,7 @@ export class TrafficLightComponent implements OnInit{
       redTime: ['',[Validators.required]],
       greenTime: ['',[Validators.required]],
       intersection: ['', [Validators.required]],
+      avenue: ['', [Validators.required]],
 
       btnSave: []
     });
@@ -79,6 +86,8 @@ export class TrafficLightComponent implements OnInit{
 
     this.listIntersection();
     this.listTrafficLight();
+    this.listAvenue();
+
     console.log("Test")
   }
 
@@ -140,6 +149,7 @@ export class TrafficLightComponent implements OnInit{
       size: 'lg'
     };
     this.selectIntersection=null;
+    this.selectAvenue=null;
     this.modalService.open(content, ngbModalOptions);
   }
 
@@ -158,6 +168,7 @@ export class TrafficLightComponent implements OnInit{
     if (this.trafficLightForm.valid) {
       this.pipe = new DatePipe('en-US');
       const intersectionId = this.selectIntersection.id;
+      const avenueId =this.selectAvenue.id;
       const status = this.trafficLightForm.get('status')?.value.toUpperCase();
       const latitude = this.trafficLightForm.get('latitude')?.value;
       const longitude = this.trafficLightForm.get('longitude')?.value;
@@ -168,7 +179,12 @@ export class TrafficLightComponent implements OnInit{
 
       let trafficLight = new TrafficLight();
       let intersection=new Intersection();
+      let avenue=new Avenue();
+
       intersection.id=intersectionId;
+      avenue.id=avenueId;
+
+      trafficLight.avenue = avenueId;
 
       trafficLight.intersection = intersectionId;
 
@@ -219,6 +235,7 @@ export class TrafficLightComponent implements OnInit{
 
 
     this.selectIntersection=listData[0].intersection;
+    this.selectAvenue=listData[0].avenue;
 
     // Centramos el mapa en las coordenadas actuales
     this.selectedLatitude = listData[0].latitude;
@@ -295,7 +312,9 @@ export class TrafficLightComponent implements OnInit{
   clear() {
     this.trafficLightForm.controls['id'].setValue("0");
     this.trafficLightForm.controls['intersection'].setValue(null);
-    this.trafficLightForm.controls['status'].setValue(null);
+    this.trafficLightForm.controls['avenue'].setValue(null);
+
+    this.trafficLightForm.controls['status'].setValue("");
     this.trafficLightForm.controls['latitude'].setValue("");
     this.trafficLightForm.controls['longitude'].setValue("");
     this.trafficLightForm.controls['brand'].setValue("");
@@ -306,6 +325,8 @@ export class TrafficLightComponent implements OnInit{
   enableInputs() {
     this.trafficLightForm.controls['id'].enable();
     this.trafficLightForm.controls['intersection'].enable();
+    this.trafficLightForm.controls['avenue'].enable();
+
     this.trafficLightForm.controls['status'].enable();
     this.trafficLightForm.controls['latitude'].enable();
     this.trafficLightForm.controls['longitude'].enable();
@@ -348,6 +369,32 @@ export class TrafficLightComponent implements OnInit{
           if (response) {
             this.intersection = response; // Asumiendo que tus datos están directamente en la respuesta
             this.service.paginationTable(this.intersection);
+          } else {
+            Swal.fire({
+              icon: 'error',
+              title: 'Error',
+              text: 'No se pudieron obtener los semáforos.',
+            });
+          }
+        },
+        error => {
+          Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: 'No se pudieron obtener los semáforos.',
+          });
+        }
+      );
+  }
+
+  listAvenue() {
+    this.avenueService.listAvenue()
+      .pipe(first())
+      .subscribe(
+        response => {
+          if (response) {
+            this.avenue = response; // Asumiendo que tus datos están directamente en la respuesta
+            this.service.paginationTable(this.avenue);
           } else {
             Swal.fire({
               icon: 'error',

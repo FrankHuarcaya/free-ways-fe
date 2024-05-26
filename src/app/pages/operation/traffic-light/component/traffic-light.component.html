@@ -30,6 +30,7 @@
               <tr>
                 <th class="align-middle">ID</th>
                 <th class="align-middle">Nombre intersecion</th>
+                <th class="align-middle">Avenida</th>
                 <th class="align-middle">Estado</th>
                 <th class="align-middle">Latitude</th>
                 <th class="align-middle">longitude</th>
@@ -45,6 +46,8 @@
                   <a href="javascript: void(0);" class="text-body fw-bold">{{data.id}}</a>
                 </td>
                 <td>{{data.intersection?.name}}</td>
+                <td>{{data.avenue?.name}}</td>
+
                 <td>{{data.status}}</td>
                 <td>{{data.latitude}}</td>
                 <td>{{data.longitude}}</td>
@@ -116,6 +119,21 @@
             </div>
           </div>
         </div>
+
+        <div class="col-md-6">
+          <div class="mb-3">
+            <label for="customername-field" class="form-label">Avenida</label>
+            <ng-select [items]="avenue" bindLabel="name" placeholder="Seleccione Avenida"
+                       [(ngModel)]="selectAvenue" id="customername-field" [clearable]="false" required
+                       formControlName="avenue"
+                       [ngClass]="{ 'is-invalid': submitted && form['avenue'].errors }">
+            </ng-select>
+            <div *ngIf="submitted && form['avenue'].errors" class="invalid-feedback" align="left">
+              <div *ngIf="form['avenue'].errors['required']">Avenida es requerido</div>
+            </div>
+          </div>
+        </div>
+
       </div>
 
 

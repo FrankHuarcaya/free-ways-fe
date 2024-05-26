@@ -1,4 +1,5 @@
 import {Intersection} from "../../intersection/models/intersection.model";
+import {Avenue} from "../../avenue/models/avenue.model";
 
 export class TrafficLight {
   id: any;
@@ -9,4 +10,5 @@ export class TrafficLight {
   redTime:number;
   greenTime:number;
   intersection:Intersection;
+  avenue:Avenue;
 }

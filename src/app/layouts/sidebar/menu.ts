@@ -51,27 +51,15 @@ export const MENU: MenuItem[] = [
         subItems: [
             {
                 id: 141,
-                label: 'MENUITEMS.MAPS.LIST.GOOGLEMAP',
+                label: 'Monitoreo',
                 link: '/maps/google',
                 parentId: 140
             },
             {
-                id: 142,
-                label: 'MENUITEMS.MAPS.LIST.LEAFLETMAP',
-                link: '/maps/leaflet',
-                parentId: 140
-            },
-            {
-                id: 142,
-                label: 'MENUITEMS.MAPS.LIST.AMCHARTS',
-                link: '/maps/AmChart',
-                parentId: 140
-            },
-            {
-              id: 143,
+              id: 142,
               label: 'Prediccion de trafico',
               link: '/maps/flujo_futuro',
-              parentId: 2,
+              parentId: 140,
             },
 
         ]

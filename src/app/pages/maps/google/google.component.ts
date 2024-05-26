@@ -49,7 +49,7 @@ export class GoogleComponent implements OnInit,AfterViewInit  {
   // bread crumb items
   breadCrumbItems: Array<{}>;
   infoContent = `<h1>Tiempo Semafórico Actual</h1><h2>🔴 Ciclo Rojo: ${this.redCycle}s</h2><h2>🟢 Ciclo Verde: ${this.greenCycle}s</h2>`;
-  constructor(@Inject(PLATFORM_ID) 
+  constructor(@Inject(PLATFORM_ID)
     private platformId: any,
     public tlService: TrafficLightService,
     // private mapsAPILoader: MapsAPILoader
@@ -65,7 +65,7 @@ export class GoogleComponent implements OnInit,AfterViewInit  {
       this.trafficLight = Object.assign([], x);
     });
 
- 
+
     this.listTrafficLight();
 
   }
@@ -90,17 +90,17 @@ export class GoogleComponent implements OnInit,AfterViewInit  {
     //maxZoom: 20,
   };
 
-  openInfo(marker: MapMarker) { 
+  openInfo(marker: MapMarker) {
     if(this.infoWindow != undefined)
       this.infoWindow.open(marker);
     this.createTrafficLightMarkerInfo(marker)
   }
-  
 
-  
+
+
   markers: google.maps.MarkerOptions[] = [
     /*{ position: { lat: -12.091756905999354, lng: -76.95300742653058 },
-      title:'title', 
+      title:'title',
       icon:{url:this.tlIcon, scaledSize: new google.maps.Size(50, 50)},
     }, // Eiffel Tower
     {
@@ -110,7 +110,7 @@ export class GoogleComponent implements OnInit,AfterViewInit  {
       visible: false
     }, // Louvre Museum*/
     ];
-    
+
     createTrafficLightMarkers(tlList: any) {
       tlList.forEach((tl: any) => {
         console.log(tl)
@@ -123,7 +123,7 @@ export class GoogleComponent implements OnInit,AfterViewInit  {
       this.tlService.retrieveTrafficLight(marker._title).pipe(first()).subscribe(
         (data) => {
           tlInfo = data;
-          this.infoContent = `<h1>Tiempo Semafórico Actual</h1><h2>🔴 Ciclo Rojo: ${tlInfo.redTime}s</h2><h2>🟢 Ciclo Verde: ${tlInfo.redGreen}s</h2>`;
+          this.infoContent = `<h1>Tiempo Semafórico Actual</h1><h2>🔴 Ciclo Rojo: ${tlInfo.redTime}s</h2><h2>🟢 Ciclo Verde: ${tlInfo.greenTime}s</h2>`;
         },
         (error) => {
           console.log(error);
@@ -134,7 +134,6 @@ export class GoogleComponent implements OnInit,AfterViewInit  {
       )
       console.log(tlInfo);
       //this.infoContent =`<h1>Tiempo Semafórico Actual</h1><h2>🔴 Ciclo Rojo: ${tlInfo.redTime}s</h2><h2>🟢 Ciclo Verde: ${this.redGreen}s</h2>`
-     
     }
     listTrafficLight() {
       this.tlService.listTrafficLights()

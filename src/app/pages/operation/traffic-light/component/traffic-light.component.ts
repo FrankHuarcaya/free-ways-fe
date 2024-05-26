@@ -65,7 +65,7 @@ export class TrafficLightComponent implements OnInit{
       longitude: ['',[Validators.required]],
       brand: [''],
       redTime: ['',[Validators.required]],
-      redGreen: ['',[Validators.required]],
+      greenTime: ['',[Validators.required]],
       intersection: ['', [Validators.required]],
 
       btnSave: []
@@ -163,7 +163,7 @@ export class TrafficLightComponent implements OnInit{
       const longitude = this.trafficLightForm.get('longitude')?.value;
       const brand = this.trafficLightForm.get('brand')?.value;
       const redTime = this.trafficLightForm.get('redTime')?.value;
-      const redGreen = this.trafficLightForm.get('redGreen')?.value;
+      const greenTime = this.trafficLightForm.get('greenTime')?.value;
 
 
       let trafficLight = new TrafficLight();
@@ -177,7 +177,7 @@ export class TrafficLightComponent implements OnInit{
       trafficLight.longitude = longitude;
       trafficLight.brand = brand;
       trafficLight.redTime = redTime;
-      trafficLight.redGreen = redGreen;
+      trafficLight.greenTime = greenTime;
 
       const id = this.trafficLightForm.get('id')?.value;
       if (id == '0') {
@@ -214,7 +214,7 @@ export class TrafficLightComponent implements OnInit{
     this.trafficLightForm.controls['longitude'].setValue(listData[0].longitude);
     this.trafficLightForm.controls['brand'].setValue(listData[0].brand);
     this.trafficLightForm.controls['redTime'].setValue(listData[0].redTime);
-    this.trafficLightForm.controls['redGreen'].setValue(listData[0].redGreen);
+    this.trafficLightForm.controls['greenTime'].setValue(listData[0].greenTime);
     this.idTrafficLightOuput = id;
 
 
@@ -228,29 +228,30 @@ export class TrafficLightComponent implements OnInit{
 
   listTrafficLight() {
     this.service.listTrafficLights()
-        .pipe(first())
-        .subscribe(
-            response => {
-              console.log("Response:", response);
-              if (response) {
-                this.trafficLight = response; // Asumiendo que tus datos están directamente en la respuesta
-                this.service.paginationTable(this.trafficLight);
-              } else {
-                Swal.fire({
-                  icon: 'error',
-                  title: 'Error',
-                  text: 'No se pudieron obtener los semáforos.',
-                });
-              }
-            },
-            error => {
-              Swal.fire({
-                icon: 'error',
-                title: 'Error',
-                text: 'No se pudieron obtener los semáforos.',
-              });
-            }
-        );
+      .pipe(first())
+      .subscribe(
+        response => {
+          console.log("Response:", response);
+          if (response && Array.isArray(response)) { // Asegura que la respuesta es un arreglo
+            // Ordena el arreglo de semáforos por 'id' de forma ascendente
+            this.trafficLight = response.sort((a, b) => a.id - b.id);
+            this.service.paginationTable(this.trafficLight);
+          } else {
+            Swal.fire({
+              icon: 'error',
+              title: 'Error',
+              text: 'No se pudieron obtener los semáforos.',
+            });
+          }
+        },
+        error => {
+          Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: 'No se pudieron obtener los semáforos.',
+          });
+        }
+      );
   }
   registerTrafficLight(trafficLight) {
     this.service.registerTrafficLight(trafficLight)
@@ -299,7 +300,7 @@ export class TrafficLightComponent implements OnInit{
     this.trafficLightForm.controls['longitude'].setValue("");
     this.trafficLightForm.controls['brand'].setValue("");
     this.trafficLightForm.controls['redTime'].setValue("");
-    this.trafficLightForm.controls['redGreen'].setValue("");
+    this.trafficLightForm.controls['greenTime'].setValue("");
   }
 
   enableInputs() {
@@ -310,7 +311,7 @@ export class TrafficLightComponent implements OnInit{
     this.trafficLightForm.controls['longitude'].enable();
     this.trafficLightForm.controls['brand'].enable();
     this.trafficLightForm.controls['redTime'].enable();
-    this.trafficLightForm.controls['redGreen'].enable();
+    this.trafficLightForm.controls['greenTime'].enable();
   }
 
   deleteTrafficLight(id) {

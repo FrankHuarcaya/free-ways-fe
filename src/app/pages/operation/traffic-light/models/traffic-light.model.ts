@@ -7,6 +7,6 @@ export class TrafficLight {
   longitude:string;
   brand:string;
   redTime:number;
-  redGreen:number;
+  greenTime:number;
   intersection:Intersection;
 }

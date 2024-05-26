@@ -179,6 +179,15 @@
     ora "5.4.1"
     rxjs "7.8.1"
 
+"@angular-slider/ngx-slider@^17.0.2":
+  version "17.0.2"
+  resolved "https://registry.npmjs.org/@angular-slider/ngx-slider/-/ngx-slider-17.0.2.tgz"
+  integrity sha512-6fQ0wOH/pZvC2kbw3ZFab7eXwDaKZtj/cuA7pbhyKWHp8pwhaptoDDoEXttlAZIUEnrMG8rkg0OBcVWwwBLEJA==
+  dependencies:
+    detect-passive-events "^2.0.3"
+    rxjs "^7.8.1"
+    tslib "^2.3.0"
+
 "@angular/animations@^17.0.5":
   version "17.0.5"
   resolved "https://registry.npmjs.org/@angular/animations/-/animations-17.0.5.tgz"

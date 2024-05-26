@@ -13,6 +13,7 @@ import { LeafletComponent } from './leaflet/leaflet.component';
 import { AmchartsComponent } from './amcharts/amcharts.component';
 import { FlujoFuturoComponent } from './flujo_futuro/component/flujo_futuro.component';
 import { MapPickerComponent } from './map-picker/component/map-picker.component';
+import { NgxSliderModule } from '@angular-slider/ngx-slider';
 
 @NgModule({
   declarations: [GoogleComponent, LeafletComponent,
@@ -22,7 +23,8 @@ import { MapPickerComponent } from './map-picker/component/map-picker.component'
     MapsRoutingModule,
     UIModule,
     GoogleMapsModule,
-    LeafletModule
+    LeafletModule,
+    NgxSliderModule
   ],
   exports: [
     MapPickerComponent

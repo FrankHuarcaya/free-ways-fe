@@ -13,3 +13,27 @@ html, body {
     height: 100% !important;
     width: 100% !important;
   }
+  .slider-container {
+    position: relative;
+    width: 80%; /* Ajusta el tamaño según sea necesario */
+    margin: 20px auto; /* Centrar el slider horizontalmente */
+    text-align: center; /* Alinear el texto al centro */
+    padding-top: 20px; /* Añadir espacio arriba del slider para las etiquetas */
+}
+
+.slider-labels {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    padding: 0 10px; /* Añade padding para separar las etiquetas del borde */
+    position: absolute;
+    top: 0; /* Posiciona las etiquetas en la parte superior del contenedor */
+    left: 0;
+    right: 0;
+}
+
+.slider-labels span {
+    font-size: 14px; /* Ajusta el tamaño del texto según sea necesario */
+    background: white; /* Añade fondo blanco para que sea más legible */
+    padding: 0 5px; /* Añade padding para mejorar la legibilidad */
+}

@@ -211,9 +211,9 @@ export class IntersectionComponent implements OnInit{
             this.service.paginationTable(this.intersection);
           } else {
             Swal.fire({
-              icon: 'error',
-              title: 'Error',
-              text: 'No se pudieron obtener los semáforos.',
+              icon: 'success',
+              title: 'Lista',
+              text: 'Se pudieron obtener las intersecciones.',
             });
           }
         },
@@ -221,7 +221,7 @@ export class IntersectionComponent implements OnInit{
           Swal.fire({
             icon: 'error',
             title: 'Error',
-            text: 'No se pudieron obtener los semáforos.',
+            text: 'No se pudieron obtener las intersecciones.',
           });
         }
       );
@@ -234,13 +234,13 @@ export class IntersectionComponent implements OnInit{
         Swal.fire({
           icon: 'success',
           title: 'Registrado',
-          text: 'Semáforo registrado correctamente.',
+          text: 'Interseccion registrado correctamente.',
         });
       }, error => {
         Swal.fire({
           icon: 'error',
           title: 'Error',
-          text: 'No se pudo registrar el semáforo.',
+          text: 'No se pudo registrar la interseccion.',
         });
       });
   }
@@ -253,13 +253,13 @@ export class IntersectionComponent implements OnInit{
         Swal.fire({
           icon: 'success',
           title: 'Actualizado',
-          text: 'Semáforo actualizado correctamente.',
+          text: 'Interseccion actualizado correctamente.',
         });
       }, error => {
         Swal.fire({
           icon: 'error',
           title: 'Error',
-          text: 'No se pudo actualizar el semáforo.',
+          text: 'No se pudo actualizar la Interseccion.',
         });
       });
   }
@@ -290,13 +290,13 @@ export class IntersectionComponent implements OnInit{
         Swal.fire({
           icon: 'success',
           title: 'Eliminado',
-          text: 'Semáforo eliminado correctamente.',
+          text: 'Interseccion eliminado correctamente.',
         });
       }, error => {
         Swal.fire({
           icon: 'error',
           title: 'Error',
-          text: 'No se pudo eliminar el semáforo.',
+          text: 'No se pudo eliminar la interseccion.',
         });
       });
   }

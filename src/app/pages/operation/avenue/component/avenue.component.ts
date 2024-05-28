@@ -215,9 +215,9 @@ export class AvenueComponent implements OnInit{
             this.service.paginationTable(this.avenue);
           } else {
             Swal.fire({
-              icon: 'error',
-              title: 'Error',
-              text: 'No se pudieron obtener los semáforos.',
+              icon: 'success',
+              title: 'Lista',
+              text: 'Se pudieron obtener las avenidas.',
             });
           }
         },
@@ -225,7 +225,7 @@ export class AvenueComponent implements OnInit{
           Swal.fire({
             icon: 'error',
             title: 'Error',
-            text: 'No se pudieron obtener los semáforos.',
+            text: 'No se pudieron obtener las avenidas.',
           });
         }
       );
@@ -238,13 +238,13 @@ export class AvenueComponent implements OnInit{
         Swal.fire({
           icon: 'success',
           title: 'Registrado',
-          text: 'Semáforo registrado correctamente.',
+          text: 'Avenida registrado correctamente.',
         });
       }, error => {
         Swal.fire({
           icon: 'error',
           title: 'Error',
-          text: 'No se pudo registrar el semáforo.',
+          text: 'No se pudo registrar la avenida.',
         });
       });
   }
@@ -257,13 +257,13 @@ export class AvenueComponent implements OnInit{
         Swal.fire({
           icon: 'success',
           title: 'Actualizado',
-          text: 'Semáforo actualizado correctamente.',
+          text: 'Avenida actualizado correctamente.',
         });
       }, error => {
         Swal.fire({
           icon: 'error',
           title: 'Error',
-          text: 'No se pudo actualizar el semáforo.',
+          text: 'No se pudo actualizar la avenida.',
         });
       });
   }
@@ -292,13 +292,13 @@ export class AvenueComponent implements OnInit{
         Swal.fire({
           icon: 'success',
           title: 'Eliminado',
-          text: 'Semáforo eliminado correctamente.',
+          text: 'avenida eliminado correctamente.',
         });
       }, error => {
         Swal.fire({
           icon: 'error',
           title: 'Error',
-          text: 'No se pudo eliminar el semáforo.',
+          text: 'No se pudo eliminar la avenida.',
         });
       });
   }

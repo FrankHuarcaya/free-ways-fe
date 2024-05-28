@@ -243,9 +243,9 @@ export class LaneGroupComponent implements OnInit{
             this.service.paginationTable(this.laneGroup);
           } else {
             Swal.fire({
-              icon: 'error',
-              title: 'Error',
-              text: 'No se pudieron obtener los semáforos.',
+              icon: 'success',
+              title: 'Lista',
+              text: 'Se pudieron obtener los carriles.',
             });
           }
         },
@@ -253,7 +253,7 @@ export class LaneGroupComponent implements OnInit{
           Swal.fire({
             icon: 'error',
             title: 'Error',
-            text: 'No se pudieron obtener los semáforos.',
+            text: 'No se pudieron obtener los carriles.',
           });
         }
       );
@@ -266,13 +266,13 @@ export class LaneGroupComponent implements OnInit{
         Swal.fire({
           icon: 'success',
           title: 'Registrado',
-          text: 'Semáforo registrado correctamente.',
+          text: 'Carriles registrado correctamente.',
         });
       }, error => {
         Swal.fire({
           icon: 'error',
           title: 'Error',
-          text: 'No se pudo registrar el semáforo.',
+          text: 'No se pudo registrar el carriles.',
         });
       });
   }
@@ -285,13 +285,13 @@ export class LaneGroupComponent implements OnInit{
         Swal.fire({
           icon: 'success',
           title: 'Actualizado',
-          text: 'Semáforo actualizado correctamente.',
+          text: 'Carriles actualizado correctamente.',
         });
       }, error => {
         Swal.fire({
           icon: 'error',
           title: 'Error',
-          text: 'No se pudo actualizar el semáforo.',
+          text: 'No se pudo actualizar el carriles.',
         });
       });
   }
@@ -328,7 +328,7 @@ export class LaneGroupComponent implements OnInit{
         Swal.fire({
           icon: 'error',
           title: 'Error',
-          text: 'No se pudo eliminar el semáforo.',
+          text: 'No se pudo eliminar el carril.',
         });
       });
   }

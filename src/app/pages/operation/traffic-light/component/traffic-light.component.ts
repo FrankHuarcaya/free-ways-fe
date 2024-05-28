@@ -49,6 +49,9 @@ export class TrafficLightComponent implements OnInit{
   avenue?:any;
   selectAvenue=null;
 
+  private updateInterval: any;
+
+
   constructor(public service: TrafficLightService,
               private avenueService:AvenueService,
               private intersectionServices:IntersectionService,
@@ -87,6 +90,10 @@ export class TrafficLightComponent implements OnInit{
     this.listIntersection();
     this.listTrafficLight();
     this.listAvenue();
+
+    this.updateInterval = setInterval(() => {
+      this.listTrafficLight();
+    }, 60000);  // 60000 ms = 1 minuto
 
     console.log("Test")
   }

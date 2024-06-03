@@ -49,6 +49,12 @@ export const environment = {
       update: '/operation/avenue/',
       delete: '/operation/avenue/'
     },
+    trafficFlow:{
+      list: '/operation/trafficflows/',
+      register: '/operation/trafficflows/',
+      update: '/operation/trafficflows/',
+      delete: '/operation/trafficflows/'
+    },
     predictions:{
       list: '/operation/predictions/',
     },

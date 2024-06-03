@@ -10,8 +10,9 @@ import {MapsModule} from "../maps/maps.module";
 import { AvenueComponent } from './avenue/component/avenue.component';
 import { IntersectionComponent } from './intersection/component/intersection.component';
 import { LaneGroupComponent } from './lane-group/component/lane-group.component';
+import { TrafficFlowComponent } from './traffic-flow/component/traffic-flow.component';
 @NgModule({
-  declarations: [TrafficLightComponent, AvenueComponent, IntersectionComponent, LaneGroupComponent],
+  declarations: [TrafficLightComponent, AvenueComponent, IntersectionComponent, LaneGroupComponent, TrafficFlowComponent],
     imports: [
         CommonModule,
         OperationRoutingModule,

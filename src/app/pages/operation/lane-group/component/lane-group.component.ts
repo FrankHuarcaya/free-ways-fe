@@ -172,8 +172,6 @@ export class LaneGroupComponent implements OnInit{
       const capacity = this.laneGroupForm.get('capacity')?.value;
       const numLanes = this.laneGroupForm.get('numLanes')?.value;
 
-
-
       let laneGroup = new LaneGroup();
       let avenue=new Avenue();
       let intersection=new Intersection();

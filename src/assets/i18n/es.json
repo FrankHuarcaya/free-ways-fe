@@ -317,7 +317,7 @@
       }
     },
     "MAPS": {
-      "TEXT": "Mapas",
+      "TEXT": "Monitoreo",
       "LIST": {
         "GOOGLEMAP": "mapas de Google",
         "LEAFLETMAP": "Mapas de folletos",

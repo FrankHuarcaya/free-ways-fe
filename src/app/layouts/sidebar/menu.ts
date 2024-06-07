@@ -51,7 +51,7 @@ export const MENU: MenuItem[] = [
         subItems: [
             {
                 id: 141,
-                label: 'Monitoreo',
+                label: 'Monitoreo tiempo Real',
                 link: '/maps/google',
                 parentId: 140
             },
@@ -68,7 +68,7 @@ export const MENU: MenuItem[] = [
   {
     id: 141,
     label: 'Operaciones',
-    icon: 'bx-map',
+    icon: 'bx bx-buoy',
     subItems: [
       {
         id: 141,

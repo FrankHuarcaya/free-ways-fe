@@ -10,6 +10,7 @@ export interface ChartType {
     xaxis?: any;
     stroke?: any;
     labels?: any;
+    title?:any;
 }
 
 

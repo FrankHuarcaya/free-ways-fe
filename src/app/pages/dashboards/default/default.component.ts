@@ -31,6 +31,7 @@ export class DefaultComponent implements OnInit {
 
   setupChart(data: any) {
     const transformedData = this.transformData(data);
+    const hours = this.getAllHours(data);
 
     this.chartOptions = {
       series: transformedData,
@@ -67,6 +68,10 @@ export class DefaultComponent implements OnInit {
           }
         }
       },
+      xaxis: {
+        categories: hours,
+        tickPlacement: 'on'
+      },
       title: {
         text: "HeatMap Chart (Traffic Data)"
       }
@@ -100,5 +105,10 @@ export class DefaultComponent implements OnInit {
     });
 
     return series;
+  }
+
+  getAllHours(data: any): string[] {
+    const firstDay = Object.keys(data)[0];
+    return Object.keys(data[firstDay]);
   }
 }

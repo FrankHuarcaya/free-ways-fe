@@ -75,8 +75,7 @@ export class DefaultComponent implements OnInit {
 
   transformData(data: any): ApexAxisChartSeries {
     let series: ApexAxisChartSeries = [];
-    const weekdays = Object.keys(data);
-    const hours = Object.keys(data[weekdays[0]]);
+    const days = Object.keys(data);
 
     const valueMapping = {
       'Leve': 0,
@@ -84,16 +83,18 @@ export class DefaultComponent implements OnInit {
       'Saturado': 2
     };
 
-    weekdays.forEach(weekday => {
+    days.forEach(day => {
       let seriesData = [];
+      const hours = Object.keys(data[day]);
+
       hours.forEach(hour => {
         seriesData.push({
           x: hour,
-          y: valueMapping[data[weekday][hour]]
+          y: valueMapping[data[day][hour]]
         });
       });
       series.push({
-        name: weekday,
+        name: day,
         data: seriesData
       });
     });

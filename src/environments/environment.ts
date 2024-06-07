@@ -58,6 +58,9 @@ export const environment = {
     predictions:{
       list: '/operation/predictions/',
     },
+    dashboard:{
+      list: '/operation/traffic-flow-report/',
+    },
   }
 };
 

@@ -19,5 +19,5 @@ export function sort(trafficFlow: TrafficFlow[], column: SortColumn, direction: 
 }
 
 export function matches(trafficFlow: TrafficFlow, term: string,pipe: PipeTransform) {
-  return trafficFlow.intersection.name.toLowerCase().includes(term.toLowerCase());
+  return trafficFlow.laneGroup.intersection.name.toLowerCase().includes(term.toLowerCase());
 }

@@ -15,7 +15,11 @@ export class DashboardService extends BaseService{
   }
 
   getTrafficFlowReport(): Observable<any> {
-    return this.httpClient.get(`${environment.server}${environment.operation.dashboard.list}`);
+    return this.httpClient.get(`${environment.server}${environment.operation.dashboard.getTrafficFlowReport}`);
+  }
+
+  getAverageVehicleDay(): Observable<any> {
+    return this.httpClient.get(`${environment.server}${environment.operation.dashboard.getAverageVehicleDay}`);
   }
 
 

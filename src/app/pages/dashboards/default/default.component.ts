@@ -8,6 +8,7 @@ import {
   ApexTitleSubtitle,
   ChartComponent
 } from "ng-apexcharts";
+import {AverageVehicleDay} from "../models/average-vehicle-day.model";
 
 @Component({
   selector: 'app-default',
@@ -18,16 +19,128 @@ export class DefaultComponent implements OnInit {
   @ViewChild("chart") chart: ChartComponent;
   public chartOptions: Partial<ChartType> = {}; // Inicializar chartOptions
 
+    lineAverageVehicleDay: ChartType = {};
+    averageVehicleDay: AverageVehicleDay[] = [];
+
   constructor(private dashboardService: DashboardService) {
   }
 
   ngOnInit() {
+
     this.dashboardService.getTrafficFlowReport().subscribe(data => {
       this.setupChart(data);
       console.log(data);
     });
-
+    this.getAverageVehicleDay();
   }
+
+    getAverageVehicleDay() {
+        this.dashboardService.getAverageVehicleDay().subscribe(
+            (response) => {
+                this.averageVehicleDay = response.average_vehicle_per_day;
+                console.log("promedio", this.averageVehicleDay);
+                this.setupLineChart(this.averageVehicleDay);
+            },
+            (error) => {
+                console.error('Error fetching data', error);
+            }
+        );
+    }
+
+
+    setupLineChart(averageVehicleDays: AverageVehicleDay[]) {
+        this.lineAverageVehicleDay = {
+            chart: {
+                height: 450,
+                type: 'line',
+                zoom: {
+                    enabled: false
+                },
+                toolbar: {
+                    show: false
+                }
+            },
+            colors: ['#556ee6', '#34c38f', '#74788d', '#f1b44c', '#f46a6a', '#50a5f1'],
+            dataLabels: {
+                enabled: true,
+                formatter: function (val) {
+                    return val.toFixed(2); // Formatea a 2 decimales
+                }
+            },
+            stroke: {
+                width: [4, 4],
+                curve: 'straight'
+            },
+            series: [{
+                name: 'Cantidad - Vehiculos',
+                data: averageVehicleDays.map(item => item.average)
+            }],
+            title: {
+                text: 'Cantidad de vehículos por día',
+                align: 'left'
+            },
+            grid: {
+                row: {
+                    colors: ['transparent', 'transparent'], // takes an array which will be repeated on columns
+                    opacity: 0.2
+                },
+                borderColor: '#f1f1f1'
+            },
+            markers: {
+                style: 'inverted',
+                size: 6
+            },
+            xaxis: {
+                categories: averageVehicleDays.map(item => item.day),
+                title: {
+                    text: 'Días'
+                }
+            },
+            yaxis: {
+                title: {
+                    text: 'Cantidad'
+                },
+                labels: {
+                    formatter: function (val) {
+                        return val.toFixed(2); // Formatea a 2 decimales
+                    }
+                }
+            },
+            legend: {
+                position: 'top',
+                horizontalAlign: 'right',
+                floating: true,
+                offsetY: -25,
+                offsetX: -5,
+                itemMargin: {
+                    horizontal: 20
+                }
+            },
+            tooltip: {
+                shared: true,
+                y: {
+                    formatter: function (val) {
+                        return val.toFixed(2); // Formatea a 2 decimales
+                    }
+                }
+            },
+            responsive: [{
+                breakpoint: 600,
+                options: {
+                    chart: {
+                        toolbar: {
+                            show: false
+                        }
+                    },
+                    legend: {
+                        show: false
+                    }
+                }
+            }]
+        };
+    }
+
+
 
   setupChart(data: any) {
     const transformedData = this.transformData(data);

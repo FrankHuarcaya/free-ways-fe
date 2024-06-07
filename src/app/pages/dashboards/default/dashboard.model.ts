@@ -11,6 +11,12 @@ export interface ChartType {
     stroke?: any;
     labels?: any;
     title?:any;
+    grid?:any;
+    markers?:any;
+    yaxis?:any;
+    tooltip?:any;
+    responsive?:any;
+
 }
 
 

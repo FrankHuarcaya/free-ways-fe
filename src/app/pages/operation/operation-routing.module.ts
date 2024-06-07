@@ -4,6 +4,8 @@ import {TrafficLightComponent} from "./traffic-light/component/traffic-light.com
 import {AvenueComponent} from "./avenue/component/avenue.component";
 import {IntersectionComponent} from "./intersection/component/intersection.component";
 import {LaneGroupComponent} from "./lane-group/component/lane-group.component";
+import {TrafficFlow} from "./traffic-flow/models/traffic-flow.model";
+import {TrafficFlowComponent} from "./traffic-flow/component/traffic-flow.component";
 
 
 const routes: Routes = [
@@ -11,7 +13,7 @@ const routes: Routes = [
   { path: "avenue", component: AvenueComponent},
   { path: "intersection", component: IntersectionComponent},
   { path: "lane-group", component: LaneGroupComponent},
-
+  { path: "traffic-flow", component: TrafficFlowComponent},
 
 ];
 

@@ -88,12 +88,18 @@ export const MENU: MenuItem[] = [
         link: '/operation/intersection',
         parentId: 145
       },
-        {
+      {
             id: 146,
             label: 'Grupo carriles',
             link: '/operation/lane-group',
             parentId: 147
-        }
+      },
+      {
+        id: 147,
+        label: 'Flujo trafico',
+        link: '/operation/traffic-flow',
+        parentId: 148
+      }
     ]
   },
 

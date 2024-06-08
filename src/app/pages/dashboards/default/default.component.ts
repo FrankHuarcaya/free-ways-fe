@@ -9,6 +9,9 @@ import {
   ChartComponent
 } from "ng-apexcharts";
 import {AverageVehicleDay} from "../models/average-vehicle-day.model";
+import {first} from "rxjs/operators";
+import {Intersection} from "../../operation/intersection/models/intersection.model";
+import Swal from "sweetalert2";
 
 @Component({
   selector: 'app-default',
@@ -22,17 +25,45 @@ export class DefaultComponent implements OnInit {
     lineAverageVehicleDay: ChartType = {};
     averageVehicleDay: AverageVehicleDay[] = [];
 
-  constructor(private dashboardService: DashboardService) {
+    intersections: Intersection[] = [];
+    selectedIntersection: string = 'INTERSECTION JAVIER PRADO - IQUITOS'; // Valor por defecto
+
+
+    constructor(private dashboardService: DashboardService) {
   }
 
   ngOnInit() {
-
-    this.dashboardService.getTrafficFlowReport().subscribe(data => {
-      this.setupChart(data);
-      console.log(data);
-    });
-    this.getAverageVehicleDay();
+        this.getIntersections();
+        this.getAverageVehicleDay();
   }
+
+    getIntersections() {
+        this.dashboardService.listIntersection()
+            .pipe(first())
+            .subscribe(
+                (response: Intersection[]) => {
+                    console.log("Response:", response);
+                    if (response) {
+                        this.intersections = response;
+                        this.selectedIntersection = this.intersections[0]?.name || this.selectedIntersection;
+                        this.loadTrafficFlowReport(this.selectedIntersection);
+                    } else {
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Lista',
+                            text: 'Se pudieron obtener las intersecciones.',
+                        });
+                    }
+                },
+                error => {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error',
+                        text: 'No se pudieron obtener las intersecciones.',
+                    });
+                }
+            );
+    }
 
     getAverageVehicleDay() {
         this.dashboardService.getAverageVehicleDay().subscribe(
@@ -138,6 +169,27 @@ export class DefaultComponent implements OnInit {
                 }
             }]
         };
+    }
+
+    onIntersectionChange() {
+        this.loadTrafficFlowReport(this.selectedIntersection);
+    }
+
+    loadTrafficFlowReport(intersectionName: string) {
+        this.dashboardService.getTrafficFlowReport(intersectionName)
+            .pipe(first())
+            .subscribe(
+                data => {
+                    this.setupChart(data);
+                },
+                error => {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error',
+                        text: 'No se pudieron obtener los datos del tráfico.',
+                    });
+                }
+            );
     }
 
 

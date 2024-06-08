@@ -16,32 +16,7 @@ export const MENU: MenuItem[] = [
                 label: 'MENUITEMS.DASHBOARDS.LIST.DEFAULT',
                 link: '/dashboard',
                 parentId: 2
-            },
-            {
-                id: 4,
-                label: 'MENUITEMS.DASHBOARDS.LIST.SAAS',
-                link: '/dashboards/saas',
-                parentId: 2
-            },
-            {
-                id: 5,
-                label: 'MENUITEMS.DASHBOARDS.LIST.CRYPTO',
-                link: '/dashboards/crypto',
-                parentId: 2
-            },
-            {
-                id: 6,
-                label: 'MENUITEMS.DASHBOARDS.LIST.BLOG',
-                link: '/dashboards/blog',
-                parentId: 2
-            },
-            {
-                id: 7,
-                label: 'MENUITEMS.DASHBOARDS.LIST.JOBS',
-                link: '/dashboards/jobs',
-                parentId: 2,
-            },
-
+            }
         ]
     },
     {

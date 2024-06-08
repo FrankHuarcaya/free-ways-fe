@@ -60,7 +60,7 @@ export const environment = {
       list: '/operation/predictions/',
     },
     dashboard:{
-      getTrafficFlowReport: '/operation/traffic-flow-report/',
+      getTrafficFlowReport: '/operation/traffic-flow-report',
       getAverageVehicleDay: '/operation/average-vehicle-per-day-report/',
 
     },

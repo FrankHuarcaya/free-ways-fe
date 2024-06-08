@@ -10,17 +10,22 @@
     </div>
 
     <div class="row">
-      <div>
-        <h2>Traffic profile calendar</h2>
-        <apx-chart
-          *ngIf="chartOptions.series"
-          [series]="chartOptions.series"
-          [chart]="chartOptions.chart"
-          [dataLabels]="chartOptions.dataLabels"
-          [plotOptions]="chartOptions.plotOptions"
-          [title]="chartOptions.title">
-        </apx-chart>
-      </div>
+        <div>
+            <h2>Traffic profile calendar</h2>
+            <select [(ngModel)]="selectedIntersection" (change)="onIntersectionChange()">
+                <option *ngFor="let intersection of intersections" [value]="intersection.name">
+                    {{ intersection.name }}
+                </option>
+            </select>
+            <apx-chart
+                    *ngIf="chartOptions.series"
+                    [series]="chartOptions.series"
+                    [chart]="chartOptions.chart"
+                    [dataLabels]="chartOptions.dataLabels"
+                    [plotOptions]="chartOptions.plotOptions"
+                    [title]="chartOptions.title">
+            </apx-chart>
+        </div>
     </div>
 
   <div class="row">

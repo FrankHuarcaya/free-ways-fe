@@ -11,8 +11,9 @@ import { AvenueComponent } from './avenue/component/avenue.component';
 import { IntersectionComponent } from './intersection/component/intersection.component';
 import { LaneGroupComponent } from './lane-group/component/lane-group.component';
 import { TrafficFlowComponent } from './traffic-flow/component/traffic-flow.component';
+import { UserComponent } from './user/component/user.component';
 @NgModule({
-  declarations: [TrafficLightComponent, AvenueComponent, IntersectionComponent, LaneGroupComponent, TrafficFlowComponent],
+  declarations: [TrafficLightComponent, AvenueComponent, IntersectionComponent, LaneGroupComponent, TrafficFlowComponent, UserComponent],
     imports: [
         CommonModule,
         OperationRoutingModule,

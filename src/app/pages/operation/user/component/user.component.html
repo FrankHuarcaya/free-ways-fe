@@ -1,0 +1,223 @@
+<div class="container-fluid">
+    <app-page-title title="Orders" [breadcrumbItems]="breadCrumbItems"></app-page-title>
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body">
+                    <div class="row mb-2">
+                        <div class="col-sm-4">
+                            <div class="search-box me-2 mb-2 d-inline-block">
+                                <div class="position-relative">
+                                    <input type="text" class="form-control" placeholder="Buscar por nombre..."
+                                           [(ngModel)]="service.searchTerm">
+                                    <i class="bx bx-search-alt search-icon"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-8">
+                            <div class="text-sm-end">
+                                <button type="button" class="btn btn-success btn-rounded mb-2 me-2" (click)="openModal(content)"><i
+                                        class="mdi mdi-plus mr-1"></i>
+                                    Nuevo</button>
+                            </div>
+                        </div><!-- end col-->
+                    </div>
+
+                    <!-- Table data -->
+                    <div class="table-responsive mb-0">
+                        <table class="table table-centered table-nowrap">
+                            <thead class="table-light">
+                            <tr>
+                                <th class="align-middle">ID</th>
+                                <th class="align-middle">Usuario</th>
+                                <th class="align-middle">Nombre</th>
+                                <th class="align-middle">Apellido</th>
+                                <th class="align-middle">Correo</th>
+                                <th class="align-middle">role</th>
+                                <th class="align-middle">estado</th>
+
+                                <th class="align-middle">Acción</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr *ngFor="let data of user" id="o_{{data.id}}">
+                                <td>
+                                    <a href="javascript: void(0);" class="text-body fw-bold">{{data.id}}</a>
+                                </td>
+                                <td>{{data.username}}</td>
+                                <td>{{data.first_name}}</td>
+                                <td>{{data.last_name}}</td>
+                                <td>{{data.email}}</td>
+                                <td>{{data.role}}</td>
+                                <td>{{data.is_active}}</td>
+                                <td>
+                                    <div class="d-flex gap-3">
+                                        <a href="javascript:void(0);" class="text-success" (click)="editDataGet(data.id,content)"><i
+                                                class="mdi mdi-pencil font-size-18"></i></a>
+                                        <a href="javascript:void(0);" class="text-danger" (click)="delete(data.id)"><i
+                                                class="mdi mdi-delete font-size-18"></i></a>
+                                    </div>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <!-- end table -->
+                    <div class="row justify-content-md-between align-items-md-center mt-2">
+                        <div class="col-sm-12 col-md-5">
+                            <div class="dataTables_info mb-2" id="tickets-table_info" role="status" aria-live="polite">Showing
+                                {{service.startIndex}} to
+                                {{service.endIndex}} of {{service.totalRecords}}
+                                entries
+                            </div>
+                        </div>
+                        <!-- Pagination -->
+                        <div class="col-sm-12 col-md-5">
+                            <div class="text-md-right float-md-end  ">
+                                <ngb-pagination [collectionSize]="total | async" [(page)]="service.page" [pageSize]="service.pageSize"
+                                                [maxSize]="8">
+                                </ngb-pagination>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Order Create Model -->
+<ng-template #content role="document" let-modal>
+    <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Nuevo usuario</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="close-modal"
+                (click)="modal.dismiss('Cross click')"></button>
+    </div>
+    <form (ngSubmit)="saveUser()" [formGroup]="userForm">
+        <div class="modal-body">
+            <input type="text" hidden formControlName="id" value="0" />
+
+            <div class="row">
+
+                <div class="col-md-6">
+
+                    <div class="mb-3">
+                        <label for="customername-field" class="form-label">Usuario</label>
+                        <input type="text" id="customername-field" class="form-control" required formControlName="username"
+                               [ngClass]="{ 'is-invalid': submitted && form['username'].errors }" autocomplete="disabled" />
+                        <div *ngIf="submitted && form['username'].errors" class="invalid-feedback" align="left">
+                            <div *ngIf="form['username'].errors['required']">Usuario es requerido</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+
+                    <div class="mb-3">
+                        <label for="customername-field" class="form-label">Contraseña</label>
+                        <input type="text" id="customername-field" class="form-control" required formControlName="password"
+                               [ngClass]="{ 'is-invalid': submitted && form['password'].errors }" autocomplete="disabled" />
+                        <div *ngIf="submitted && form['password'].errors" class="invalid-feedback" align="left">
+                            <div *ngIf="form['password'].errors['required']">Contraseña es requerido</div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="row">
+
+
+
+                <div class="col-md-6">
+
+                    <div class="mb-3">
+                        <label for="customername-field" class="form-label">Nombre</label>
+                        <input type="text" id="customername-field" class="form-control" required formControlName="first_name"
+                               [ngClass]="{ 'is-invalid': submitted && form['first_name'].errors }" autocomplete="disabled" />
+                        <div *ngIf="submitted && form['first_name'].errors" class="invalid-feedback" align="left">
+                            <div *ngIf="form['first_name'].errors['required']">Nombre es requerido</div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="col-md-6">
+
+                    <div class="mb-3">
+                        <label for="customername-field" class="form-label">Apellido</label>
+                        <input type="text" id="customername-field" class="form-control" required formControlName="last_name"
+                               [ngClass]="{ 'is-invalid': submitted && form['last_name'].errors }" autocomplete="disabled" />
+                        <div *ngIf="submitted && form['last_name'].errors" class="invalid-feedback" align="left">
+                            <div *ngIf="form['last_name'].errors['required']">Apellido es requerido</div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="row">
+                <div class="col-md-4">
+
+                    <div class="mb-3">
+                        <label for="customername-field" class="form-label">Correo</label>
+                        <input type="text" id="customername-field" class="form-control" required formControlName="email"
+                               [ngClass]="{ 'is-invalid': submitted && form['email'].errors }" autocomplete="disabled" />
+                        <div *ngIf="submitted && form['email'].errors" class="invalid-feedback" align="left">
+                            <div *ngIf="form['email'].errors['required']">Correo es requerido</div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="col-md-4">
+                    <div class="mb-3">
+                        <label for="customername-field" class="form-label">Role</label>
+                        <ng-select [items]="typeRole" id="customername-field"
+                                   formControlName="role" placeholder="Seleccione Tipo Servicio"
+                                   [ngClass]="{ 'is-invalid': submitted && form['role'].errors }"></ng-select>
+                        <div *ngIf="submitted && form['role'].errors" class="invalid-feedback"
+                             align="left">
+                            <div *ngIf="form['role'].errors['required']">Role es
+                                requerido
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="mb-3">
+                        <label for="customername-field" class="form-label">Estado</label>
+                        <ng-select [items]="activeType" id="customername-field"
+                                   formControlName="is_active" placeholder="Seleccione Tipo Servicio"
+                                   [ngClass]="{ 'is-invalid': submitted && form['is_active'].errors }"></ng-select>
+                        <div *ngIf="submitted && form['is_active'].errors" class="invalid-feedback"
+                             align="left">
+                            <div *ngIf="form['is_active'].errors['required']">Estado es
+                                requerido
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+
+
+
+
+
+        </div>
+        <div class="modal-footer">
+            <div class="hstack gap-2 justify-content-end">
+                <button type="button" class="btn btn-light" data-bs-dismiss="modal"
+                        (click)="modal.close('Close click')">Cancelar</button>
+                <button type="submit" class="btn btn-success" id="add-btn">Registrar</button>
+            </div>
+        </div>
+    </form>
+</ng-template>
+<!--End Modal -->

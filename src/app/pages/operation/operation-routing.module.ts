@@ -6,6 +6,7 @@ import {IntersectionComponent} from "./intersection/component/intersection.compo
 import {LaneGroupComponent} from "./lane-group/component/lane-group.component";
 import {TrafficFlow} from "./traffic-flow/models/traffic-flow.model";
 import {TrafficFlowComponent} from "./traffic-flow/component/traffic-flow.component";
+import {UserComponent} from "./user/component/user.component";
 
 
 const routes: Routes = [
@@ -14,6 +15,7 @@ const routes: Routes = [
   { path: "intersection", component: IntersectionComponent},
   { path: "lane-group", component: LaneGroupComponent},
   { path: "traffic-flow", component: TrafficFlowComponent},
+  { path: "user", component: UserComponent},
 
 ];
 

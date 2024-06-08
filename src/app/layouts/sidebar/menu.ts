@@ -99,7 +99,13 @@ export const MENU: MenuItem[] = [
         label: 'Flujo trafico',
         link: '/operation/traffic-flow',
         parentId: 148
-      }
+      },
+        {
+            id: 149,
+            label: 'Usuario',
+            link: '/operation/user',
+            parentId: 150
+        }
     ]
   },
 

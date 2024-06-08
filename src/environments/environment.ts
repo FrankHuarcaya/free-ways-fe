@@ -19,9 +19,10 @@ export const environment = {
   security: {
     user: {
       login: '/security/login/',
-      register: '/security/user/',
-      list: '/security/user/',
-      delete: '/security/user/',
+      register: '/security/users/',
+      update: '/security/users/',
+      list: '/security/users/',
+      delete: '/security/users/',
     }
   },
   operation:{

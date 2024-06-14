@@ -34,6 +34,12 @@
         <div class="card-body">
           <h4 class="card-title mb-4">Promedio de vehiculos por dia</h4>
 
+          <select (change)="onIntersectionChangeAverage($event.target.value)">
+            <option *ngFor="let intersection of intersections" [value]="intersection.name" [selected]="intersection.name === selectedIntersectionAverage">
+              {{ intersection.name }}
+            </option>
+          </select>
+
           <apx-chart class="apex-charts" dir="ltr" [series]="lineAverageVehicleDay.series" [chart]="lineAverageVehicleDay.chart"
                      [colors]="lineAverageVehicleDay.colors" [stroke]="lineAverageVehicleDay.stroke"
                      [dataLabels]="lineAverageVehicleDay.dataLabels" [title]="lineAverageVehicleDay.title"

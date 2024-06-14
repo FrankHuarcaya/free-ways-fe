@@ -28,13 +28,15 @@ export class DefaultComponent implements OnInit {
     intersections: Intersection[] = [];
     selectedIntersection: string = 'INTERSECTION JAVIER PRADO - IQUITOS'; // Valor por defecto
 
+    selectedIntersectionAverage: string = 'INTERSECTION JAVIER PRADO - IQUITOS'; // Valor por defecto
 
-    constructor(private dashboardService: DashboardService) {
+
+  constructor(private dashboardService: DashboardService) {
   }
 
   ngOnInit() {
         this.getIntersections();
-        this.getAverageVehicleDay();
+        this.getAverageVehicleDay(this.selectedIntersectionAverage);
   }
 
     getIntersections() {
@@ -64,17 +66,19 @@ export class DefaultComponent implements OnInit {
             );
     }
 
-    getAverageVehicleDay() {
-        this.dashboardService.getAverageVehicleDay().subscribe(
+    getAverageVehicleDay(intersectionName: string) {
+        this.dashboardService.getAverageVehicleDay(intersectionName).subscribe(
             (response) => {
                 this.averageVehicleDay = response.average_vehicle_per_day;
                 this.setupLineChart(this.averageVehicleDay);
+                console.log("Primedio data",this.averageVehicleDay);
             },
             (error) => {
                 console.error('Error fetching data', error);
             }
         );
     }
+
 
 
     setupLineChart(averageVehicleDays: AverageVehicleDay[]) {
@@ -167,6 +171,10 @@ export class DefaultComponent implements OnInit {
                 }
             }]
         };
+    }
+
+    onIntersectionChangeAverage(intersectionName: string) {
+      this.getAverageVehicleDay(intersectionName);
     }
 
     onIntersectionChange() {

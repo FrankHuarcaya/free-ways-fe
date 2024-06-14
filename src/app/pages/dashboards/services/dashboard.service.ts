@@ -24,8 +24,9 @@ export class DashboardService extends BaseService{
     return this.httpClient.get(`${environment.server}${environment.operation.dashboard.getTrafficFlowReport}/${formattedIntersectionName}`);
   }
 
-  getAverageVehicleDay(): Observable<any> {
-    return this.httpClient.get(`${environment.server}${environment.operation.dashboard.getAverageVehicleDay}`);
+  getAverageVehicleDay(intersectionName: string): Observable<any> {
+    const formattedIntersectionName = encodeURIComponent(intersectionName);
+    return this.httpClient.get(`${environment.server}${environment.operation.dashboard.getAverageVehicleDay}/${formattedIntersectionName}`);
   }
 
 

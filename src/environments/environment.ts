@@ -61,8 +61,7 @@ export const environment = {
     },
     dashboard:{
       getTrafficFlowReport: '/operation/traffic-flow-report',
-      getAverageVehicleDay: '/operation/average-vehicle-per-day-report/',
-
+      getAverageVehicleDay: '/operation/average-vehicle-per-day-report',
     },
   }
 };

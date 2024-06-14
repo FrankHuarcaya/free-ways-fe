@@ -71,7 +71,7 @@ export class DefaultComponent implements OnInit {
             (response) => {
                 this.averageVehicleDay = response.average_vehicle_per_day;
                 this.setupLineChart(this.averageVehicleDay);
-                console.log("Primedio data",this.averageVehicleDay);
+
             },
             (error) => {
                 console.error('Error fetching data', error);
@@ -187,7 +187,6 @@ export class DefaultComponent implements OnInit {
             .subscribe(
                 data => {
                     this.setupChart(data);
-                    console.log(data)
                 },
                 error => {
                     Swal.fire({

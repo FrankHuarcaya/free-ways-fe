@@ -87,6 +87,7 @@ export class LoginComponent implements OnInit {
       user.username = this.f.email.value;
       user.password = this.f.password.value;
       this.login(user);
+      console.log("usuario prueba",user);
     }
   }
 

@@ -8,6 +8,7 @@ import { HttpClient } from '@angular/common/http';
 import { MENU } from './menu';
 import { MenuItem } from './menu.model';
 import { TranslateService } from '@ngx-translate/core';
+import {AuthenticationService} from "../../core/services/auth.service";
 
 @Component({
   selector: 'app-sidebar',
@@ -28,7 +29,7 @@ export class SidebarComponent implements OnInit, AfterViewInit, OnChanges {
 
   @ViewChild('sideMenu') sideMenu: ElementRef;
 
-  constructor(private eventService: EventService, private router: Router, public translate: TranslateService, private http: HttpClient) {
+  constructor(private service:AuthenticationService,private eventService: EventService, private router: Router, public translate: TranslateService, private http: HttpClient) {
     router.events.forEach((event) => {
       if (event instanceof NavigationEnd) {
         this._activateMenuDropdown();
@@ -139,7 +140,16 @@ export class SidebarComponent implements OnInit, AfterViewInit, OnChanges {
    * Initialize
    */
   initialize(): void {
-    this.menuItems = MENU;
+    this.menuItems = this.filterMenuByRole(MENU, this.service.currentUserValue.role);
+  }
+
+  filterMenuByRole(menuItems: MenuItem[], role: string): MenuItem[] {
+    return menuItems.filter(item => !item.roles || item.roles.includes(role)).map(item => {
+      return {
+        ...item,
+        subItems: item.subItems ? this.filterMenuByRole(item.subItems, role) : []
+      };
+    });
   }
 
   /**

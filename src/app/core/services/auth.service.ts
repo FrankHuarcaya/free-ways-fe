@@ -40,7 +40,8 @@ export class AuthenticationService {
                 if (user && user.access) {
                     localStorage.setItem('refresh', JSON.stringify(user.refresh));
                     localStorage.setItem('access', JSON.stringify(user.access));
-                    this.currentUserSubject.next(user);
+                    localStorage.setItem('role', JSON.stringify(user.role));
+                  this.currentUserSubject.next(user);
                 }
                 return user;
             }));

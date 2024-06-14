@@ -27,7 +27,7 @@ export class TrafficFlowService extends BaseService{
 
   private _state: State = {
     page: 1,
-    pageSize: 8,
+    pageSize: 16,
     searchTerm: '',
     sortColumn: '',
     sortDirection: '',

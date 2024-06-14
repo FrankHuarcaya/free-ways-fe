@@ -42,7 +42,6 @@ export class DefaultComponent implements OnInit {
             .pipe(first())
             .subscribe(
                 (response: Intersection[]) => {
-                    console.log("Response:", response);
                     if (response) {
                         this.intersections = response;
                         this.selectedIntersection = this.intersections[0]?.name || this.selectedIntersection;
@@ -69,7 +68,6 @@ export class DefaultComponent implements OnInit {
         this.dashboardService.getAverageVehicleDay().subscribe(
             (response) => {
                 this.averageVehicleDay = response.average_vehicle_per_day;
-                console.log("promedio", this.averageVehicleDay);
                 this.setupLineChart(this.averageVehicleDay);
             },
             (error) => {
@@ -181,6 +179,7 @@ export class DefaultComponent implements OnInit {
             .subscribe(
                 data => {
                     this.setupChart(data);
+                    console.log(data)
                 },
                 error => {
                     Swal.fire({

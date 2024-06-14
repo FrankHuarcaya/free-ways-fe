@@ -11,6 +11,11 @@
                   <input type="text" class="form-control" placeholder="Buscar por cliente..."
                          [(ngModel)]="service.searchTerm">
                   <i class="bx bx-search-alt search-icon"></i>
+
+                  <button (click)="exportExcel()" type="button" class="btn custom btn-sm mt-2 ml-2"><i class="fa fa-download"></i>
+                    Exportar
+                  </button>
+
                 </div>
               </div>
             </div>

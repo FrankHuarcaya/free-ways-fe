@@ -11,6 +11,8 @@ import {Intersection} from "../../intersection/models/intersection.model";
 import {IntersectionService} from "../../intersection/services/intersection.service";
 import {Avenue} from "../../avenue/models/avenue.model";
 import {AvenueService} from "../../avenue/services/avenue.service";
+import {TrafficFlow} from "../../traffic-flow/models/traffic-flow.model";
+import * as XLSX from "xlsx";
 @Component({
   selector: 'app-traffic-light',
   templateUrl: './traffic-light.component.html',
@@ -50,6 +52,9 @@ export class TrafficLightComponent implements OnInit{
   selectAvenue=null;
 
   private updateInterval: any;
+
+  trafficLightExcel: TrafficLight[] = [];
+  fileName = 'trafficLight.xlsx';
 
 
   constructor(public service: TrafficLightService,
@@ -255,11 +260,12 @@ export class TrafficLightComponent implements OnInit{
       .pipe(first())
       .subscribe(
         response => {
-          console.log("Response:", response);
           if (response && Array.isArray(response)) { // Asegura que la respuesta es un arreglo
             // Ordena el arreglo de semáforos por 'id' de forma ascendente
             this.trafficLight = response.sort((a, b) => a.id - b.id);
             this.service.paginationTable(this.trafficLight);
+            this.trafficLightExcel=this.trafficLight;
+            console.log("excel",this.trafficLightExcel);
           } else {
             Swal.fire({
               icon: 'error',
@@ -419,5 +425,32 @@ export class TrafficLightComponent implements OnInit{
         }
       );
   }
+
+  exportExcel(): void {
+    const serviceIncidentExcelData = this.trafficLightExcel.map((trafficLight: TrafficLight) => {
+      return {
+        id: trafficLight.id,
+        status: trafficLight.status,
+        latitude: trafficLight.latitude,
+        longitude: trafficLight.longitude,
+        brand: trafficLight.brand,
+        redTime: trafficLight.redTime,
+        greenTime: trafficLight.greenTime,
+        intersection: trafficLight.intersection.name,
+        avenue: trafficLight.avenue.name,
+      };
+    });
+    /* pass here the table id */
+    const ws: XLSX.WorkSheet = XLSX.utils.json_to_sheet(serviceIncidentExcelData);
+
+    /* generate workbook and add the worksheet */
+    const wb: XLSX.WorkBook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+
+    /* save to file */
+    XLSX.writeFile(wb, this.fileName);
+  }
+
+
 
 }

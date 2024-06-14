@@ -13,6 +13,7 @@ import {Intersection} from "../../intersection/models/intersection.model";
 import {first} from "rxjs/operators";
 import {TrafficFlow} from "../models/traffic-flow.model";
 import {TrafficFlowService} from "../services/traffic-flow.service";
+import * as XLSX from 'xlsx';
 
 @Component({
   selector: 'app-traffic-flow',
@@ -52,6 +53,10 @@ export class TrafficFlowComponent implements OnInit{
 
   intersection?:any;
   selectIntersection=null;
+
+  trafficFlowExcel: TrafficFlow[] = [];
+  fileName = 'trafficFlow.xlsx';
+
 
   constructor(public service: TrafficFlowService,
               private laneGroupService:LaneGroupService,
@@ -179,8 +184,9 @@ export class TrafficFlowComponent implements OnInit{
         response => {
           if (response) {
             this.trafficFlow = response; // Asumiendo que tus datos están directamente en la respuesta
+            this.trafficFlowExcel=this.trafficFlow;
+            console.log("dataExcel",this.trafficFlowExcel);
             this.service.paginationTable(this.trafficFlow);
-            console.log("data",this.trafficFlow);
           } else {
             Swal.fire({
               icon: 'success',
@@ -198,6 +204,27 @@ export class TrafficFlowComponent implements OnInit{
         }
       );
   }
+
+  exportExcel(): void {
+    const serviceIncidentExcelData = this.trafficFlowExcel.map((trafficFlow: TrafficFlow) => {
+      return {
+        id: trafficFlow.id,
+        timestamp: trafficFlow.timestamp,
+        vehicleCount: trafficFlow.vehicleCount,
+        laneGroup: trafficFlow.laneGroup.intersection.name,
+      };
+    });
+    /* pass here the table id */
+    const ws: XLSX.WorkSheet = XLSX.utils.json_to_sheet(serviceIncidentExcelData);
+
+    /* generate workbook and add the worksheet */
+    const wb: XLSX.WorkBook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+
+    /* save to file */
+    XLSX.writeFile(wb, this.fileName);
+  }
+
   registerLaneGroup(laneGroup) {
 
   }
@@ -215,7 +242,6 @@ export class TrafficFlowComponent implements OnInit{
   }
 
   deleteLaneGroup(id) {
-
   }
 
 

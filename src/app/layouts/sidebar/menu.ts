@@ -85,7 +85,7 @@ export const MENU: MenuItem[] = [
         label: 'Flujo trafico',
         link: '/operation/traffic-flow',
         parentId: 148,
-        roles: ['admin']
+        roles: ['admin','analyst']
       },
         {
             id: 149,
@@ -95,7 +95,7 @@ export const MENU: MenuItem[] = [
             roles: ['admin']
         }
     ],
-    roles: ['admin']
+    roles: ['admin','analyst']
   },
 
 ];

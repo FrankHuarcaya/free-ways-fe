@@ -143,17 +143,24 @@
 
 
       <div class="row">
-        <div class="col-md-6">
 
+
+        <div class="col-md-6">
           <div class="mb-3">
             <label for="customername-field" class="form-label">Estado</label>
-            <input type="text" id="customername-field" class="form-control" required formControlName="status"
-                   [ngClass]="{ 'is-invalid': submitted && form['status'].errors }" autocomplete="disabled" />
-            <div *ngIf="submitted && form['status'].errors" class="invalid-feedback" align="left">
-              <div *ngIf="form['status'].errors['required']">estado es requerido</div>
+            <ng-select [items]="estadoSemaforo" id="customername-field"
+                       formControlName="status" placeholder="Seleccione Estado" required
+                       [ngClass]="{ 'is-invalid': submitted && form['status'].errors }"></ng-select>
+            <div *ngIf="submitted && form['status'].errors" class="invalid-feedback"
+                 align="left">
+              <div *ngIf="form['status'].errors['required']">Estado es
+                requerido
+              </div>
             </div>
           </div>
         </div>
+
+
 
         <div class="col-md-6">
           <div class="mb-3">
@@ -216,6 +223,10 @@
                           (locationSelected)="updateLocation($event)"> </app-map-picker>
         </div>
       </div>
+
+
+
+
 
 
     </div>

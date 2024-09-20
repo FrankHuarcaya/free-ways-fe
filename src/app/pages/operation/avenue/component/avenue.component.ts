@@ -75,7 +75,6 @@ export class AvenueComponent implements OnInit{
     this.idAvenueOuput = 0;
 
     this.listAvenue();
-    console.log("Test")
   }
 
   /**
@@ -209,9 +208,8 @@ export class AvenueComponent implements OnInit{
       .pipe(first())
       .subscribe(
         response => {
-          console.log("Response:", response);
           if (response) {
-            this.avenue = response; // Asumiendo que tus datos están directamente en la respuesta
+            this.avenue = response;
             this.service.paginationTable(this.avenue);
           } else {
             Swal.fire({

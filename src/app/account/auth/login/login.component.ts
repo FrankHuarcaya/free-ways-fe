@@ -9,6 +9,8 @@ import { login } from 'src/app/store/Authentication/authentication.actions';
 import { first } from 'rxjs';
 import { ToastrService } from 'ngx-toastr';
 import { User } from 'src/app/store/Authentication/auth.models';
+import Swal from "sweetalert2";
+import {config} from "../../../shared/shared.config";
 
 
 
@@ -105,9 +107,13 @@ export class LoginComponent implements OnInit {
               this.router.navigate(['/default']);
               //this.listCheckLists(response.user.id);
             },
-            () => {
-              this.showAlert("Usuario o contraseña incorrecto", 'error')
+          () => {
+            Swal.fire({
+              icon: config.ERROR,
+              title: "Usuario o contraseña incorrecto",
+              showConfirmButton: false,
             });
+          });
   }
 
 

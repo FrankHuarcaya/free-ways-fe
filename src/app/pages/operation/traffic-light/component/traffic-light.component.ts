@@ -47,6 +47,8 @@ export class TrafficLightComponent implements OnInit{
 
   intersection?:any;
   selectIntersection=null;
+  estadoSemaforo: string[] = ['ACTIVO', 'INACTIVO'];
+
 
   avenue?:any;
   selectAvenue=null;

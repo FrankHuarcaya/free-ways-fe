@@ -6,8 +6,8 @@ import { latLng, Map, marker, Marker, tileLayer,icon  } from 'leaflet';
   styleUrls: ['./map-picker.component.scss']
 })
 export class MapPickerComponent implements OnChanges{
-    @Input() latitude: number = -12.043333; // Valor predeterminado
-    @Input() longitude: number = -77.028333; // Valor predeterminado
+    @Input() latitude: number = -12.062227571551697; // Valor predeterminado
+    @Input() longitude: number = -77.03829408035381; // Valor predeterminado
     @Output() locationSelected = new EventEmitter<{ latitude: number, longitude: number }>();
 
     options = {
@@ -44,8 +44,8 @@ export class MapPickerComponent implements OnChanges{
 
     private updateMarker() {
         if (this.map) {
-            const lat = this.latitude || 46.879966;
-            const lng = this.longitude || -121.726909;
+            const lat = this.latitude || -12.062227571551697;
+            const lng = this.longitude || -77.03829408035381;
             if (this.mapMarker) {
                 this.map.removeLayer(this.mapMarker);
             }

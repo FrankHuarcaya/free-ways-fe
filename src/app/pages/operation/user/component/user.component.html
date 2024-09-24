@@ -107,7 +107,7 @@
                     <div class="mb-3">
                         <label for="customername-field" class="form-label">Usuario</label>
                         <input type="text" id="customername-field" class="form-control" required formControlName="username"
-                               [ngClass]="{ 'is-invalid': submitted && form['username'].errors }" autocomplete="disabled" />
+                               [ngClass]="{ 'is-invalid': submitted && form['username'].errors }" />
                         <div *ngIf="submitted && form['username'].errors" class="invalid-feedback" align="left">
                             <div *ngIf="form['username'].errors['required']">Usuario es requerido</div>
                         </div>
@@ -118,8 +118,8 @@
 
                     <div class="mb-3">
                         <label for="customername-field" class="form-label">Contraseña</label>
-                        <input type="text" id="customername-field" class="form-control" required formControlName="password"
-                               [ngClass]="{ 'is-invalid': submitted && form['password'].errors }" autocomplete="disabled" />
+                        <input type="password" id="customername-field" class="form-control" required formControlName="password"
+                               [ngClass]="{ 'is-invalid': submitted && form['password'].errors }" />
                         <div *ngIf="submitted && form['password'].errors" class="invalid-feedback" align="left">
                             <div *ngIf="form['password'].errors['required']">Contraseña es requerido</div>
                         </div>

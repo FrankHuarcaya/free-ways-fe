@@ -15,9 +15,15 @@ export class AuthenticationService {
     private httpClient: HttpClient;
 
     constructor(handler: HttpBackend) {
-        this.httpClient = new HttpClient(handler);
-        this.currentUserSubject = new BehaviorSubject<User>(JSON.parse(localStorage.getItem("access")));
-        this.currentUser = this.currentUserSubject.asObservable();
+      this.httpClient = new HttpClient(handler);
+
+      const storedAccess = localStorage.getItem('access');
+      const storedRole = localStorage.getItem('role');
+
+      const storedUser = storedAccess && storedRole ? { access: JSON.parse(storedAccess), role: JSON.parse(storedRole) } : null;
+
+      this.currentUserSubject = new BehaviorSubject<User>(storedUser);
+      this.currentUser = this.currentUserSubject.asObservable();
     }
 
     /**

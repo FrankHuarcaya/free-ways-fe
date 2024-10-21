@@ -63,7 +63,7 @@ export class LaneGroupComponent implements OnInit{
   }
 
   ngOnInit(): void {
-    this.breadCrumbItems = [{ label: 'Operaciobes' }, { label: 'Grupo carriles', active: true }];
+    this.breadCrumbItems = [{ label: 'Operaciones' }, { label: 'Grupo carriles', active: true }];
 
     /**
      * Form Validation

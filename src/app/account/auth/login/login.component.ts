@@ -25,6 +25,8 @@ import {config} from "../../../shared/shared.config";
  */
 export class LoginComponent implements OnInit {
 
+  showPassword: boolean = false;
+
 
   menuItems = [];
   message: any;
@@ -150,5 +152,9 @@ export class LoginComponent implements OnInit {
 
   toggleFieldTextType() {
     this.fieldTextType = !this.fieldTextType;
+  }
+
+  togglePasswordVisibility() {
+    this.showPassword = !this.showPassword;
   }
 }
